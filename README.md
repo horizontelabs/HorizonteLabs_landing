@@ -1,130 +1,41 @@
-# Horizonte Labs — Landing Page
+# sustrato.ai — Sitio web
 
-<div align="center">
+Sitio multipágina de **sustrato.ai**: la capa donde los agentes de IA leen, actúan y se integran con la operación de una empresa — con sus herramientas conectadas, sus criterios y trazabilidad completa.
 
-![Horizonte Labs](https://img.shields.io/badge/Horizonte%20Labs-AI%20Agents-E10600?style=for-the-badge&logoColor=white)
-![React](https://img.shields.io/badge/React%2019-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript%205.8-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS%20v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite%206-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+## Rutas principales
 
-<p align="center">
-  <strong>Integramos agentes de Inteligencia Artificial al trabajo diario de tu empresa sobre una capa de contexto propia.</strong>
-</p>
+- `/` — Inicio: propuesta de valor, diagrama interactivo de **La Capa**, puente a las dos verticales, bloque interactivo de **Control y gobernanza**, proceso en 3 etapas, equipo y FAQ.
+- `/soluciones` — **Soluciones tecnológicas**: flujo interactivo paso a paso (5 etapas con reproducción), escenarios por tipo de operación con marco repetible y visual *blueprint*, capacidades y gobernanza aplicada.
+- `/ingenieria` — **Ingeniería de software**: demostración interactiva de doble superficie (*Vista Equipo* ↔ *Vista Agente API/MCP*), tipos de proyectos con marco repetible, estándares de ingeniería y ciclo en 4 fases.
+- `/nosotros` — Equipo fundador y principios de ingeniería.
+- `/api/contact` — Vercel Serverless Function para recibir solicitudes del diagnóstico operacional (vía Resend o webhook).
 
-[Demostración](#-despliegue) • [Características](#-características) • [Stack Tecnológico](#-stack-tecnológico) • [Estructura](#-estructura-del-proyecto) • [Instalación](#-instalación-y-desarrollo)
+## Stack
 
----
+- React 19 + TypeScript 5.8 + Vite 6
+- Tailwind CSS v4
+- Motion (Framer Motion v12) con `reducedMotion="user"`
+- Lucide React
 
-</div>
+## Desarrollo local
 
-## 📌 Acerca de Horizonte Labs
-
-**Horizonte Labs** es una plataforma y consultora técnica especializada en el despliegue de **agentes de Inteligencia Artificial contextualizados** para operaciones empresariales de alto impacto. 
-
-A diferencia de los chatbots genéricos, nuestras soluciones operan sobre una **Capa de Contexto Propia** que conecta los sistemas, flujos y datos propietarios de cada organización con modelos fundacionales de vanguardia.
-
----
-
-## ✨ Características y Secciones
-
-- **🧠 Hero con Red Neuronal Interactiva:** Visualización dinámica en canvas con nodos y conexiones generativas en tiempo real.
-- **⚡ Diagnóstico Operativo & Ecuación del Valor:** Desglose interactivo del impacto en costes, horas hombre y aceleración operativa.
-- **🍱 Bento Grid Modular:** Muestra estructurada de casos de uso (soporte inteligente, análisis predictivo, automatización de flujos y orquestación de agentes).
-- **🏗️ Diagrama de Capa de Contexto:** Demostración visual de la arquitectura técnica (Sistemas Legacy $\leftrightarrow$ Capa de Contexto $\leftrightarrow$ Agentes Autónomos).
-- **📊 Métricas y Resultados:** Casos de éxito y KPIs clave en formato split 50/50.
-- **👥 Equipo Especializado:** Perfiles y roles técnicos detrás de la tecnología de Horizonte Labs.
-- **🎯 Modal de Diagnóstico Interactivo:** Formulario guiado de pre-evaluación operativa con micro-animaciones y feedback visual.
-
----
-
-## 🛠️ Stack Tecnológico
-
-| Capa | Tecnología |
-| :--- | :--- |
-| **Framework UI** | [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) |
-| **Build Tool** | [Vite 6](https://vitejs.dev/) |
-| **Estilos** | [Tailwind CSS v4](https://tailwindcss.com/) |
-| **Animaciones** | [Motion](https://motion.dev/) (Framer Motion v12) |
-| **Iconografía** | [Lucide React](https://lucide.dev/) |
-| **Efectos** | Canvas Confetti |
-
----
-
-## 📂 Estructura del Proyecto
-
-```plaintext
-horizon-labs-landing/
-├── public/                  # Assets estáticos y favicon
-├── src/
-│   ├── components/          # Componentes modulares de la interfaz
-│   │   ├── BentoGrid.tsx            # Grid de soluciones y capacidades
-│   │   ├── ConsultationModal.tsx    # Modal de diagnóstico y contacto
-│   │   ├── ContextLayerDiagram.tsx  # Diagrama de arquitectura contextual
-│   │   ├── CTASection.tsx           # Sección de llamada a la acción y footer
-│   │   ├── HeroNeuralCanvas.tsx     # Canvas interactivo de nodos neuronales
-│   │   ├── HeroSection.tsx          # Portada principal con copy editorial
-│   │   ├── Navbar.tsx               # Barra de navegación flotante
-│   │   ├── ProblemSection.tsx       # Problema y ecuación de valor
-│   │   ├── ResultsSection.tsx       # Métricas de impacto empresarial
-│   │   └── TeamSection.tsx          # Presentación del equipo técnico
-│   ├── types.ts             # Definiciones TypeScript globales
-│   ├── index.css            # Configuración Tailwind y tokens de diseño
-│   ├── App.tsx              # Ensamblador principal de la landing
-│   └── main.tsx             # Punto de entrada de React
-├── index.html               # Plantilla HTML5 con SEO y OpenGraph
-├── vite.config.ts           # Configuración de Vite y plugins
-└── package.json             # Dependencias y scripts del proyecto
+```bash
+npm install
+npm run dev
 ```
 
----
+## Variables de entorno
 
-## 🚀 Instalación y Desarrollo
+Copia `.env.example` a `.env` y configura:
 
-### Prerrequisitos
+- `VITE_SITE_URL` — Dominio canónico en producción.
+- `VITE_CONTACT_EMAIL` — Correo visible y fallback directo.
+- `VITE_BOOKING_URL` — (Opcional) URL de calendario directo (Cal.com / Calendly).
+- `RESEND_API_KEY` + `CONTACT_FROM_EMAIL` + `CONTACT_TO_EMAIL` y/o `CONTACT_WEBHOOK_URL` — Destino real del endpoint `/api/contact` en Vercel.
 
-- [Node.js](https://nodejs.org/) (versión 18 o superior recomendada)
-- Gestor de paquetes `npm`, `pnpm` o `yarn`
+## Validación y build
 
-### Pasos para iniciar en local
-
-1. **Clonar el repositorio:**
-   ```bash
-   git clone https://github.com/horizontelabs/HorizonteLabs_landing.git
-   cd HorizonteLabs_landing
-   ```
-
-2. **Instalar dependencias:**
-   ```bash
-   npm install
-   ```
-
-3. **Iniciar el servidor de desarrollo:**
-   ```bash
-   npm run dev
-   ```
-   La aplicación estará disponible en `http://localhost:3000`.
-
-4. **Compilar para producción:**
-   ```bash
-   npm run build
-   ```
-
-5. **Previsualizar la versión de producción:**
-   ```bash
-   npm run preview
-   ```
-
----
-
-## 🌐 Despliegue
-
-El proyecto está optimizado para despliegue instantáneo en **Vercel** o plataformas compatibles:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/horizontelabs/HorizonteLabs_landing)
-
----
-
-## 📄 Licencia
-
-Este proyecto se encuentra bajo la licencia **Apache 2.0**.
+```bash
+npm run lint
+npm run build
+```

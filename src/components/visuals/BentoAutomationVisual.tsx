@@ -2,33 +2,24 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { BlueprintFrame, BlueprintArrowV, useBlueprintMotion } from './blueprint';
 
-/**
- * La anatomía del flujo, no un catálogo de automatizaciones.
- *
- * Tres flujos concretos hacían parecer que todo termina en un documento. Acá los
- * ejemplos son categorías: lo que dispara y lo que queda hecho cambian con la
- * operación, el flujo es el mismo. "Se documenta" es uno de cinco verbos, no el único.
- *
- * Cada ejemplo es su propio span para que nunca se parta a mitad de frase al envolver.
- */
 const stages = [
   {
     id: 'disparador',
-    label: 'Disparador',
-    body: 'Algo que ya pasa en la operación',
-    examples: ['un correo', 'un ticket', 'un dato nuevo', 'un plazo'],
+    label: '01 · Disparador',
+    body: 'Un evento real de la operación',
+    examples: ['correo entrante', 'ticket nuevo', 'cambio en CRM', 'plazo vencido'],
   },
   {
     id: 'criterio',
-    label: 'Criterio',
-    body: 'Cómo se resuelve eso en esta empresa',
-    examples: ['casos anteriores', 'decisiones del equipo'],
+    label: '02 · Criterio en Sustrato',
+    body: 'Reglas del negocio, historial y permisos',
+    examples: ['casos previos', 'umbrales de aprobación'],
   },
   {
     id: 'resultado',
-    label: 'Resultado',
-    body: 'El trabajo queda hecho',
-    examples: ['se responde', 'se deriva', 'se actualiza', 'se registra', 'se documenta'],
+    label: '03 · Acción trazable',
+    body: 'La tarea queda ejecutada y registrada',
+    examples: ['actualiza sistema', 'deriva a humano', 'genera reporte'],
   },
 ];
 
@@ -38,35 +29,45 @@ export const BentoAutomationVisual: React.FC = () => {
   return (
     <BlueprintFrame
       label="Anatomía de un flujo"
-      note="Cambia lo que dispara y lo que queda hecho según la operación. El flujo es el mismo."
+      badge="Escenario ilustrativo"
+      note="Cambia el evento y el resultado según tu operación; la lógica de contexto y registro es consistente."
     >
       <div className="w-full flex flex-col items-stretch">
         {stages.map((stage, i) => (
           <React.Fragment key={stage.id}>
             {i > 0 && (
               <div className="flex justify-center py-1">
-                <BlueprintArrowV accent dir="down" className="h-6" />
+                <BlueprintArrowV accent dir="down" className="h-5" />
               </div>
             )}
 
-            <motion.div variants={item} className="flex flex-col items-center">
-              <div className="w-full border border-neutral-300 bg-white px-3 py-2.5 text-center">
-                <span className="block text-[10px] font-mono-code uppercase tracking-[0.16em] text-neutral-500">
-                  {stage.label}
-                </span>
-                <span className="block text-[11px] leading-snug text-neutral-900 font-medium mt-1">
-                  {stage.body}
-                </span>
-              </div>
-
-              {/* Sin separadores: al envolver dejaban un punto colgando al inicio de la línea. */}
-              <span className="flex flex-wrap justify-center gap-x-3 gap-y-0.5 text-[9px] font-mono-code leading-snug text-neutral-400 mt-1.5 px-1">
-                {stage.examples.map((example) => (
-                  <span key={example} className="whitespace-nowrap">
-                    {example}
+            <motion.div variants={item} className="flex flex-col">
+              <div
+                className={`w-full border bg-white px-3.5 py-2.5 rounded-md ${
+                  i === 1 ? 'border-[#E10600]' : 'border-neutral-300'
+                }`}
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <span
+                    className={`text-[11px] font-mono-code uppercase tracking-[0.12em] font-semibold ${
+                      i === 1 ? 'text-[#C50500]' : 'text-neutral-700'
+                    }`}
+                  >
+                    {stage.label}
                   </span>
-                ))}
-              </span>
+                  <span className="text-xs font-medium text-[#111111]">{stage.body}</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {stage.examples.map((example) => (
+                    <span
+                      key={example}
+                      className="text-[11px] font-mono-code text-neutral-600 bg-[#FAFAFA] border border-neutral-200 px-2 py-0.5 rounded"
+                    >
+                      {example}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           </React.Fragment>
         ))}

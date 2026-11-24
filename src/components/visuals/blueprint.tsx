@@ -3,70 +3,77 @@ import { motion, useReducedMotion, type Variants } from 'motion/react';
 import type { LucideIcon } from 'lucide-react';
 
 /**
- * Primitivas compartidas por las visuals de tipo diagrama.
- *
- * Reglas del lenguaje gráfico:
- * - Trazo hairline de 1px, esquinas rectas, monocromo.
- * - El acento rojo aparece UNA sola vez por diagrama: marca lo que esa card explica.
- * - Sin glow, sin blur, sin animación en loop. Solo la entrada, una vez.
+ * Primitivas compartidas por los diagramas blueprint de sustrato.ai.
+ * - Trazo hairline de 1px, geometría limpia, paleta blanco/negro + acento #E10600 puntual.
+ * - Respeta prefers-reduced-motion en todas las variantes.
  */
 
 const ACCENT = '#E10600';
-const ARROW_NEUTRAL = '#A3A3A3';
+const ARROW_NEUTRAL = '#737373';
 
-/** Variantes de entrada. Con prefers-reduced-motion el diagrama aparece sin desplazamiento. */
 export const useBlueprintMotion = () => {
   const reduce = useReducedMotion();
 
   const container: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: reduce ? 0 : 0.06 } },
+    show: { transition: { staggerChildren: reduce ? 0 : 0.05 } },
   };
 
   const item: Variants = reduce
     ? { hidden: { opacity: 1 }, show: { opacity: 1 } }
     : {
         hidden: { opacity: 0, y: 6 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+        show: { opacity: 1, y: 0, transition: { duration: 0.38, ease: [0.16, 1, 0.3, 1] } },
       };
 
-  return { container, item };
+  return { container, item, reduce };
 };
 
 interface BlueprintFrameProps {
-  /** Rótulo del diagrama, arriba a la izquierda. Describe qué se está mostrando. */
   label: string;
-  /** Nota al pie. Una frase, sin métricas. */
+  badge?: string;
   note?: string;
+  minHeightClass?: string;
   children: React.ReactNode;
 }
 
-export const BlueprintFrame: React.FC<BlueprintFrameProps> = ({ label, note, children }) => {
+export const BlueprintFrame: React.FC<BlueprintFrameProps> = ({
+  label,
+  badge,
+  note,
+  minHeightClass = 'min-h-[260px] sm:min-h-[300px]',
+  children,
+}) => {
   const { container } = useBlueprintMotion();
 
   return (
-    <div className="relative w-full min-h-[260px] sm:min-h-[300px] bg-white rounded-xl border border-neutral-200/90 p-5 sm:p-6 flex flex-col overflow-hidden">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(to_right,#F2F2F2_1px,transparent_1px),linear-gradient(to_bottom,#F2F2F2_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"
-      />
+    <div
+      className={`relative w-full ${minHeightClass} bg-white rounded-xl border border-neutral-200 p-5 sm:p-6 flex flex-col overflow-hidden`}
+    >
+      <div aria-hidden="true" className="absolute inset-0 blueprint-grid pointer-events-none" />
 
-      <span className="relative z-10 text-[10px] font-mono-code uppercase tracking-[0.18em] text-neutral-400">
-        {label}
-      </span>
+      <div className="relative z-10 flex items-center justify-between gap-3">
+        <span className="text-[11px] font-mono-code uppercase tracking-[0.14em] text-neutral-600 font-medium">
+          {label}
+        </span>
+        {badge && (
+          <span className="text-[11px] font-mono-code text-neutral-600 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">
+            {badge}
+          </span>
+        )}
+      </div>
 
       <motion.div
         variants={container}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: '-40px' }}
+        animate="show"
         className="relative z-10 flex-1 flex items-center py-5"
       >
         {children}
       </motion.div>
 
       {note && (
-        <p className="relative z-10 text-[10px] sm:text-[11px] font-mono-code text-neutral-500 leading-snug border-t border-neutral-200/70 pt-2.5">
+        <p className="relative z-10 text-xs text-neutral-600 leading-snug border-t border-neutral-200 pt-3">
           {note}
         </p>
       )}
@@ -78,8 +85,8 @@ interface BlueprintNodeProps {
   icon?: LucideIcon;
   title: string;
   meta?: string;
-  /** Marca este nodo como el acento del diagrama. */
   accent?: boolean;
+  muted?: boolean;
   className?: string;
 }
 
@@ -88,6 +95,7 @@ export const BlueprintNode: React.FC<BlueprintNodeProps> = ({
   title,
   meta,
   accent = false,
+  muted = false,
   className = '',
 }) => {
   const { item } = useBlueprintMotion();
@@ -95,20 +103,27 @@ export const BlueprintNode: React.FC<BlueprintNodeProps> = ({
   return (
     <motion.div
       variants={item}
-      className={`flex items-center gap-2 bg-white border px-2.5 py-2 min-w-0 ${
-        accent ? 'border-[#E10600]' : 'border-neutral-300'
+      className={`flex items-center gap-2.5 bg-white border px-3 py-2 min-w-0 rounded-md transition-colors duration-200 ${
+        accent
+          ? 'border-[#E10600] bg-[#FFF8F8]'
+          : muted
+            ? 'border-neutral-200 bg-neutral-50'
+            : 'border-neutral-300'
       } ${className}`}
     >
       {Icon && (
         <Icon
-          className={`w-3.5 h-3.5 shrink-0 ${accent ? 'text-[#E10600]' : 'text-neutral-500'}`}
-          strokeWidth={1.5}
+          aria-hidden="true"
+          className={`w-4 h-4 shrink-0 ${accent ? 'text-[#E10600]' : 'text-neutral-600'}`}
+          strokeWidth={1.6}
         />
       )}
       <div className="min-w-0">
-        <span className="block text-[11px] leading-tight font-medium text-neutral-900">{title}</span>
+        <span className="block text-xs leading-tight font-semibold text-[#111111] truncate">
+          {title}
+        </span>
         {meta && (
-          <span className="block text-[9px] font-mono-code leading-tight text-neutral-400 mt-0.5">
+          <span className="block text-[11px] font-mono-code leading-tight text-neutral-600 mt-0.5 truncate">
             {meta}
           </span>
         )}
@@ -117,7 +132,6 @@ export const BlueprintNode: React.FC<BlueprintNodeProps> = ({
   );
 };
 
-/** Punta de flecha de tamaño fijo, para que nunca se deforme al escalar el contenedor. */
 const Head: React.FC<{ accent: boolean; dir: 'right' | 'left' | 'up' | 'down' }> = ({
   accent,
   dir,
@@ -137,7 +151,7 @@ const Head: React.FC<{ accent: boolean; dir: 'right' | 'left' | 'up' | 'down' }>
       width={horizontal ? 5 : 7}
       height={horizontal ? 7 : 5}
       viewBox={horizontal ? '0 0 5 7' : '0 0 7 5'}
-      aria-hidden
+      aria-hidden="true"
       className="shrink-0"
     >
       <path d={path} fill={fill} />
@@ -148,12 +162,10 @@ const Head: React.FC<{ accent: boolean; dir: 'right' | 'left' | 'up' | 'down' }>
 interface ArrowProps {
   label?: string;
   accent?: boolean;
-  /** Punta en ambos extremos: relación de ida y vuelta. */
   bidirectional?: boolean;
   className?: string;
 }
 
-/** Conector horizontal. Ocupa el espacio disponible entre dos nodos. */
 export const BlueprintArrowH: React.FC<ArrowProps> = ({
   label,
   accent = false,
@@ -168,12 +180,12 @@ export const BlueprintArrowH: React.FC<ArrowProps> = ({
       className={`relative flex-1 min-w-[20px] flex items-center ${className}`}
     >
       {bidirectional && <Head accent={accent} dir="left" />}
-      <span className={`flex-1 h-px ${accent ? 'bg-[#E10600]' : 'bg-neutral-300'}`} />
+      <span className={`flex-1 h-px ${accent ? 'bg-[#E10600]' : 'bg-neutral-400'}`} />
       <Head accent={accent} dir="right" />
       {label && (
         <span
-          className={`absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] font-mono-code uppercase tracking-[0.1em] ${
-            accent ? 'text-[#E10600]' : 'text-neutral-400'
+          className={`absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-mono-code uppercase tracking-[0.08em] ${
+            accent ? 'text-[#C50500] font-semibold' : 'text-neutral-600'
           }`}
         >
           {label}
@@ -185,14 +197,11 @@ export const BlueprintArrowH: React.FC<ArrowProps> = ({
 
 interface ArrowVProps {
   accent?: boolean;
-  /** Hacia dónde apunta. Se ignora si es bidireccional. */
   dir?: 'down' | 'up';
-  /** Punta en ambos extremos: relación de ida y vuelta. */
   bidirectional?: boolean;
   className?: string;
 }
 
-/** Conector vertical. La altura la define el consumidor. */
 export const BlueprintArrowV: React.FC<ArrowVProps> = ({
   accent = false,
   dir = 'down',
@@ -204,19 +213,18 @@ export const BlueprintArrowV: React.FC<ArrowVProps> = ({
   return (
     <motion.div variants={item} className={`flex flex-col items-center ${className}`}>
       {(bidirectional || dir === 'up') && <Head accent={accent} dir="up" />}
-      <span className={`w-px flex-1 min-h-[12px] ${accent ? 'bg-[#E10600]' : 'bg-neutral-300'}`} />
+      <span className={`w-px flex-1 min-h-[12px] ${accent ? 'bg-[#E10600]' : 'bg-neutral-400'}`} />
       {(bidirectional || dir === 'down') && <Head accent={accent} dir="down" />}
     </motion.div>
   );
 };
 
-/** Rótulo de columna, en mayúsculas y mono. */
 export const BlueprintColumnLabel: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = '',
 }) => (
   <span
-    className={`block text-[9px] font-mono-code uppercase tracking-[0.16em] text-neutral-400 ${className}`}
+    className={`block text-[11px] font-mono-code uppercase tracking-[0.12em] text-neutral-600 font-medium ${className}`}
   >
     {children}
   </span>

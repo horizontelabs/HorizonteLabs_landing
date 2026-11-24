@@ -1,84 +1,94 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { HeroNeuralCanvas } from './HeroNeuralCanvas';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Check } from 'lucide-react';
+import type { DiagnosticContext } from '../lib/siteConfig';
 
 interface HeroSectionProps {
-  onOpenConsultation: () => void;
+  onOpenConsultation: (context?: DiagnosticContext) => void;
 }
+
+const pillars = [
+  'Conectado a tus sistemas actuales',
+  'Permisos y aprobación humana',
+  'Trazabilidad de cada acción',
+];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) => {
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-between pt-28 sm:pt-32 pb-16 px-6 sm:px-10 lg:px-16 overflow-hidden bg-white">
-      {/* Subtle Neural Network Particle Canvas Background */}
-      <HeroNeuralCanvas />
+    <section className="relative pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-24 px-5 sm:px-8 lg:px-14 bg-white overflow-hidden">
+      {/* Subtle architectural axis frame */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(ellipse_at_top,rgba(225,6,0,0.045),transparent_65%)]"
+      />
 
-      {/* Decorative vertical hairline rule */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-neutral-100/70 -translate-x-1/2 pointer-events-none hidden lg:block" />
-
-      <div className="relative z-10 max-w-5xl mx-auto w-full my-auto flex flex-col items-center text-center">
-        {/* Brand eyebrow */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[12px] font-mono-code uppercase tracking-[0.32em] text-[#E10600] font-semibold mb-6"
-        >
-          sustrato
-        </motion.p>
-
-        {/* H1 Headline */}
+      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[2.5rem] sm:text-6xl md:text-7xl lg:text-6xl font-bold tracking-tight leading-[1.1] sm:leading-[1.06] mb-8 text-[#111111]"
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="text-[2.35rem] sm:text-5xl lg:text-[4rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111] max-w-4xl"
         >
-          Donde los agentes <span className="text-[#D92D20]">viven</span>,
-          <br className="hidden sm:block" /> <span className="text-[#D92D20]">actúan</span> y{' '}
-          <span className="text-[#D92D20]">entienden</span>
-          <br className="hidden sm:block" /> de tu operación.
+          Donde los agentes <span className="text-[#D91914]">viven</span>,{' '}
+          <span className="text-[#D91914]">actúan</span> y{' '}
+          <span className="text-[#D91914]">entienden</span> de tu operación.
         </motion.h1>
 
-        {/* Lede */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-3xl text-base sm:text-xl text-neutral-600 font-normal leading-relaxed mb-10"
+          transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-6 max-w-2xl text-base sm:text-lg lg:text-xl text-neutral-600 leading-relaxed"
         >
-          <span className="text-neutral-900 font-medium">
-            Un agente solo no llega a tu empresa.
-          </span>{' '}
-          Necesita de dónde leer, sobre qué actuar y dónde integrarse. Construimos esa capa dentro de
-          tu operación: la información de tu empresa, tus herramientas conectadas, tus criterios, la
-          trazabilidad de lo que hacen. Sobre ella dejamos los agentes funcionando.
+          <span className="text-[#111111] font-medium">Un agente solo no llega a tu empresa.</span>{' '}
+          Construimos la capa operativa que conecta tus herramientas, aplica tus criterios y deja
+          registro de cada paso — sobre ella desplegamos agentes, automatizaciones y software a
+          medida.
         </motion.p>
 
         {/* Actions */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center gap-4"
+          transition={{ duration: 0.55, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-9 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full sm:w-auto"
         >
           <button
             id="hero-primary-cta"
-            onClick={onOpenConsultation}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#E10600] hover:bg-[#c90500] text-white text-sm font-semibold tracking-wide rounded transition-all duration-300 shadow-[0_4px_20px_rgba(225,6,0,0.25)] hover:shadow-[0_6px_28px_rgba(225,6,0,0.35)] cursor-pointer"
+            type="button"
+            onClick={() => onOpenConsultation('general')}
+            className="group inline-flex items-center justify-center gap-2.5 min-h-[50px] px-7 py-3.5 bg-[#E10600] hover:bg-[#C50500] text-white text-sm sm:text-base font-semibold rounded-lg transition-colors duration-200 shadow-[0_8px_24px_rgba(225,6,0,0.2)] cursor-pointer"
           >
-            <span>Conversemos el primer paso</span>
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <span>Agendar diagnóstico</span>
+            <ArrowUpRight
+              aria-hidden="true"
+              className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
           </button>
 
           <a
             href="#sustrato"
-            className="inline-flex items-center gap-2 px-6 py-4 text-sm font-medium text-neutral-600 hover:text-black transition-colors"
+            className="inline-flex items-center justify-center gap-2 min-h-[50px] px-6 py-3.5 text-sm sm:text-base font-medium text-[#111111] bg-white border border-neutral-300 hover:border-[#111111] rounded-lg transition-colors"
           >
-            <span>Ver cómo funciona</span>
-            <ArrowDown className="w-4 h-4 animate-bounce text-neutral-400" />
+            <span>Explorar cómo funciona</span>
+            <ArrowDown aria-hidden="true" className="w-4 h-4 text-neutral-600" />
           </a>
         </motion.div>
+
+        {/* Three concrete operational anchors */}
+        <motion.ul
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.55, delay: 0.24 }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-xs sm:text-sm text-neutral-600"
+        >
+          {pillars.map((pillar) => (
+            <li key={pillar} className="inline-flex items-center gap-2">
+              <Check aria-hidden="true" className="w-4 h-4 text-[#E10600] shrink-0" strokeWidth={2.2} />
+              <span>{pillar}</span>
+            </li>
+          ))}
+        </motion.ul>
       </div>
     </section>
   );

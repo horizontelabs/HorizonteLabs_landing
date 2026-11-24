@@ -1,270 +1,252 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Plus, Minus } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
 import { SustratoMark } from './SustratoMark';
 import { BentoAgentsVisual } from './visuals/BentoAgentsVisual';
+import { BentoAutomationVisual } from './visuals/BentoAutomationVisual';
 import { BentoCustomSoftwareVisual } from './visuals/BentoCustomSoftwareVisual';
+import { Link } from '../lib/router';
 
 interface Consumer {
-  id: string;
+  id: 'agentes' | 'automatizaciones' | 'software';
   label: string;
+  shortLabel: string;
   title: string;
   description: string;
-  /** Opcional: no todo lo que va sobre el sustrato se explica mejor con un diagrama. */
-  visual?: React.ReactNode;
+  route: string;
+  routeLabel: string;
+  visual: React.ReactNode;
 }
 
 const consumers: Consumer[] = [
   {
-    id: 'Agentes',
+    id: 'agentes',
     label: 'Agentes',
-    title: 'Agentes',
-    // Los ejemplos viven acá y no en el diagrama: en prosa se leen como ejemplos,
-    // dibujados se leen como el catálogo cerrado de lo que hacemos.
-    description: 'Agentes que trabajan dentro de tu operación, cada uno con su tarea. Puede ser uno que capte lo que entra por el CRM, uno que siga lo que se dice en redes, o uno que el equipo use para resolver el trabajo del día. Todos se apoyan en la misma capa, así que actúan con el criterio de la empresa.',
-    visual: <BentoAgentsVisual />
+    shortLabel: 'Agentes',
+    title: 'Agentes integrados a tu operación',
+    description:
+      'Cada agente asume una responsabilidad acotada —desde captación y seguimiento en CRM hasta consultas sobre documentación interna— apoyándose en la misma capa de criterios, permisos y trazabilidad.',
+    route: '/soluciones',
+    routeLabel: 'Ver Soluciones tecnológicas',
+    visual: <BentoAgentsVisual />,
   },
   {
-    // Sin diagrama: el alcance de las automatizaciones depende de cada operación,
-    // y cualquier intento de dibujarlo terminaba acotándolo a un tipo de resultado.
-    id: 'Automatizaciones',
+    id: 'automatizaciones',
     label: 'Automatizaciones',
-    title: 'Automatizaciones',
-    description: 'Flujos que resuelven el trabajo repetitivo. Las tareas que hoy dependen de que alguien las recuerde pasan a ejecutarse solas.'
+    shortLabel: 'Flujos',
+    title: 'Automatizaciones conectadas de principio a fin',
+    description:
+      'Procesos repetitivos que hoy dependen de copiar datos, revisar correos o perseguir actualizaciones pasan a ejecutarse con reglas claras y escalamiento humano cuando corresponde.',
+    route: '/soluciones',
+    routeLabel: 'Explorar flujos paso a paso',
+    visual: <BentoAutomationVisual />,
   },
   {
-    id: 'Software',
+    id: 'software',
     label: 'Software a medida',
-    title: 'Software a medida',
-    description: 'Desarrollamos el software que tu operación necesite, como cualquier desarrollo a medida. Y como queda sobre el sustrato, los agentes también pueden usarlo. Es una capacidad que se agrega a lo que la herramienta ya resuelve.',
-    visual: <BentoCustomSoftwareVisual />
-  }
+    shortLabel: 'Software',
+    title: 'Aplicaciones propias listas para tu equipo y tus agentes',
+    description:
+      'Desarrollamos el software operativo que tu empresa necesita —paneles, portales o integradores— diseñado sobre el sustrato para que tanto las personas como los agentes puedan operarlo.',
+    route: '/ingenieria',
+    routeLabel: 'Ver Ingeniería de software',
+    visual: <BentoCustomSoftwareVisual />,
+  },
 ];
 
-/** Categorías, no productos: la lista no debe leerse como el catálogo cerrado de integraciones. */
 const feeds = [
   'Comunicación',
   'Canales de entrada',
   'Documentos',
-  'Datos de la operación',
-  'Sistemas internos',
-  'Trabajo diario',
+  'Datos de operación',
+  'ERP y CRM',
+  'Aplicaciones propias',
 ];
 
-/** Cada segmento representa una pieza de la capa: construida, en curso o pendiente. */
 const segments = [
-  { state: 'done' },
-  { state: 'done' },
-  { state: 'building' },
-  { state: 'next' },
-  { state: 'next' },
+  { state: 'done', label: 'Conectores' },
+  { state: 'done', label: 'Contexto' },
+  { state: 'building', label: 'Criterios' },
+  { state: 'next', label: 'Agentes' },
+  { state: 'next', label: 'Software' },
 ] as const;
 
 export const SustratoDiagram: React.FC = () => {
-  const [activeConsumerId, setActiveConsumerId] = useState<string | null>(null);
-  const activeConsumer = consumers.find((c) => c.id === activeConsumerId);
+  const [activeId, setActiveId] = useState<Consumer['id']>('agentes');
+  const activeConsumer = consumers.find((c) => c.id === activeId) ?? consumers[0];
+
+  const handleTabKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      setActiveId(consumers[(index + 1) % consumers.length].id);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setActiveId(consumers[(index - 1 + consumers.length) % consumers.length].id);
+    }
+  };
 
   return (
     <section
       id="sustrato"
-      className="py-16 sm:py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-white border-t border-neutral-200/70 overflow-hidden"
+      className="py-20 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
     >
       <div className="max-w-5xl mx-auto">
-        {/* Editorial header */}
-        <div className="max-w-3xl mb-16 sm:mb-20">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-[12px] font-mono-code uppercase tracking-[0.24em] text-[#E10600] font-semibold mb-3"
-          >
-            La capa
-          </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-tight mb-8"
-          >
-            Sustrato.
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6 text-neutral-600 text-base sm:text-lg leading-relaxed font-normal"
-          >
-            <p>
-              Un agente no puede trabajar dentro de una empresa sin una capa debajo. Necesita de dónde
-              leer, sobre qué actuar, con qué criterio decidir y dónde dejar registro. Eso es el
-              sustrato, y lo construimos dentro de tu operación.
-            </p>
-
-            <p>
-              Se construye por etapas y cada etapa entrega algo que ya sirve: las integraciones que
-              conectan lo que el equipo ya usa, las automatizaciones que resuelven el trabajo
-              repetitivo, los agentes operando dentro de la empresa y el software a medida que la
-              operación necesite. Cada etapa deja el sustrato más completo, de modo que lo que viene
-              después es más simple y más potente.
-            </p>
-
-            <p className="text-neutral-900 font-medium border-l-2 border-[#E10600] pl-4">
-              Te acompañamos todo el camino, con un objetivo claro: agentes transformando tu operación.
-            </p>
-          </motion.div>
+        {/* Header without repeating Hero */}
+        <div className="max-w-3xl mb-12 sm:mb-14">
+          <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+            Una capa compartida, construida pieza a pieza.
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed">
+            Cada etapa entrega algo utilizable desde el primer día: integraciones, automatizaciones,
+            agentes y software a medida. Todo apoya la misma capa, haciendo más simple cada paso
+            siguiente.
+          </p>
         </div>
 
-        {/* Layer diagram: consumers on top, sustrato slab, sources feeding from below */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-3xl mx-auto"
-        >
-          {/* Consumers resting on the slab */}
-          <div className="flex flex-wrap justify-center items-end gap-2 sm:gap-3 px-2 relative z-20">
-            {consumers.map((consumer, i) => {
-              const isActive = activeConsumerId === consumer.id;
+        {/* Interactive layer explorer */}
+        <div className="bg-white border border-neutral-200 rounded-2xl p-4 sm:p-7 lg:p-8">
+          {/* Segmented tab bar: always 1 clean row on mobile and desktop */}
+          <div
+            role="tablist"
+            aria-label="Capacidades que operan sobre el sustrato"
+            className="grid grid-cols-3 gap-1.5 p-1 bg-neutral-100 rounded-xl border border-neutral-200"
+          >
+            {consumers.map((consumer, index) => {
+              const isSelected = consumer.id === activeId;
               return (
-              <motion.button
-                key={consumer.id}
-                onClick={() => setActiveConsumerId(isActive ? null : consumer.id)}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: [30, -10, 3, 0] }}
-                whileHover={{ y: -2 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.15, ease: 'backOut' }}
-                className={`px-3 sm:px-6 pt-3 pb-4 -mb-px bg-white border border-neutral-200 border-b-0 rounded-t-xl text-[12px] sm:text-sm font-semibold shadow-[0_-4px_16px_rgba(0,0,0,0.03)] transition-all duration-300 cursor-pointer focus:outline-none flex items-center gap-2 ${
-                  isActive
-                    ? 'text-[#E10600] border-[#E10600] bg-[#FAFAFA] shadow-[0_-8px_20px_rgba(225,6,0,0.08)]'
-                    : 'text-neutral-900 hover:text-[#E10600]'
-                }`}
-              >
-                {consumer.label}
-                <span className="flex items-center justify-center w-4 h-4 rounded-full bg-neutral-100/50">
-                  {isActive ? (
-                    <Minus className="w-3 h-3 text-[#E10600]" />
-                  ) : (
-                    <Plus className="w-3 h-3 text-neutral-700 group-hover:text-[#E10600] transition-colors" />
+                <button
+                  key={consumer.id}
+                  id={`sustrato-tab-${consumer.id}`}
+                  role="tab"
+                  type="button"
+                  aria-selected={isSelected}
+                  aria-controls={`sustrato-panel-${consumer.id}`}
+                  tabIndex={isSelected ? 0 : -1}
+                  onClick={() => setActiveId(consumer.id)}
+                  onKeyDown={(e) => handleTabKeyDown(e, index)}
+                  className={`relative min-h-[44px] px-2 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors cursor-pointer ${
+                    isSelected ? 'text-[#111111]' : 'text-neutral-600 hover:text-[#111111]'
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.span
+                      layoutId="sustrato-active-tab"
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute inset-0 bg-white rounded-lg border border-neutral-200 shadow-[0_1px_3px_rgba(17,17,17,0.06)]"
+                    />
                   )}
-                </span>
-              </motion.button>
-            )})}
+                  <span className="relative z-10 flex items-center justify-center gap-1.5">
+                    <span
+                      aria-hidden="true"
+                      className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                        isSelected ? 'bg-[#E10600]' : 'bg-neutral-400'
+                      }`}
+                    />
+                    <span className="sm:hidden">{consumer.shortLabel}</span>
+                    <span className="hidden sm:inline">{consumer.label}</span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Accordion visual section */}
-          <AnimatePresence>
-            {activeConsumer && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden w-full relative z-10"
-              >
-                <div className="bg-[#FAFAFA] border border-[#E10600]/30 rounded-2xl rounded-t-none mb-6 sm:mb-8 p-6 sm:p-8 shadow-[0_20px_40px_-15px_rgba(225,6,0,0.15)] relative -top-[1px]">
-                  <div
-                    className={`grid grid-cols-1 gap-6 md:gap-8 items-center ${
-                      activeConsumer.visual ? 'md:grid-cols-2' : ''
-                    }`}
-                  >
-                    <div className="flex flex-col text-left">
-                      <span className="text-[11px] font-mono-code uppercase tracking-widest text-[#E10600] font-semibold mb-3">
-                        En Acción
-                      </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 mb-3 leading-tight">
-                        {activeConsumer.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
-                        {activeConsumer.description}
-                      </p>
-                    </div>
-                    {activeConsumer.visual && (
-                      <div className="w-full">
-                        {activeConsumer.visual}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            )}
+          {/* Active panel */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeConsumer.id}
+              id={`sustrato-panel-${activeConsumer.id}`}
+              role="tabpanel"
+              aria-labelledby={`sustrato-tab-${activeConsumer.id}`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center"
+            >
+              <div className="lg:col-span-5 text-left">
+                <h3 className="text-xl sm:text-2xl font-bold text-[#111111] tracking-[-0.02em] leading-snug">
+                  {activeConsumer.title}
+                </h3>
+                <p className="mt-3 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                  {activeConsumer.description}
+                </p>
+                <Link
+                  to={activeConsumer.route}
+                  className="mt-5 inline-flex items-center gap-2 min-h-[44px] text-sm font-semibold text-[#C50500] hover:text-[#111111] transition-colors"
+                >
+                  <span>{activeConsumer.routeLabel}</span>
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Link>
+              </div>
+
+              <div className="lg:col-span-7">{activeConsumer.visual}</div>
+            </motion.div>
           </AnimatePresence>
 
-          {/* The slab */}
-          <div className="relative bg-[linear-gradient(160deg,rgba(225,6,0,0.07),rgba(225,6,0,0.02))] border border-[#E10600]/35 rounded-2xl px-6 sm:px-10 py-8 sm:py-10 text-center shadow-[0_20px_48px_-24px_rgba(225,6,0,0.45)]">
-            <SustratoMark idPrefix="slab" className="h-11 w-11 mx-auto mb-2 text-[#111111]" />
-
-            <span className="block text-[12px] font-mono-code uppercase tracking-[0.3em] text-[#E10600] font-bold mb-3">
-              Sustrato
+          {/* Architectural connection divider */}
+          <div className="my-6 flex items-center justify-center gap-3" aria-hidden="true">
+            <span className="h-px flex-1 bg-neutral-200" />
+            <span className="text-[11px] font-mono-code uppercase tracking-wider text-neutral-600">
+              operan sobre
             </span>
+            <span className="h-px flex-1 bg-neutral-200" />
+          </div>
 
-            <p className="text-base sm:text-lg text-neutral-900 font-medium leading-relaxed max-w-md mx-auto">
-              La información, los criterios y la historia de tu empresa
-            </p>
-
-            {/* Progress segments: the layer is built piece by piece */}
-            <div className="flex gap-1.5 sm:gap-2 mt-7 max-w-md mx-auto">
-              {segments.map((seg, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ scaleX: 0, opacity: 0 }}
-                  whileInView={{ scaleX: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.5 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                  className={`h-2.5 flex-1 rounded-full origin-left ${
-                    seg.state === 'done'
-                      ? 'bg-[#E10600]'
-                      : seg.state === 'building'
-                        ? 'bg-[#E10600]/45'
-                        : 'border border-dashed border-[#E10600]/45'
-                  }`}
-                />
-              ))}
+          {/* The Sustrato Slab */}
+          <div className="bg-[#FFF8F8] border border-[#E10600]/35 rounded-xl px-5 sm:px-8 py-6 sm:py-7 text-center">
+            <div className="flex items-center justify-center gap-2.5">
+              <SustratoMark idPrefix="slab" className="h-8 w-8 text-[#111111]" />
+              <span className="text-xs font-mono-code uppercase tracking-[0.22em] text-[#C50500] font-bold">
+                Sustrato
+              </span>
             </div>
 
-            <span className="block mt-4 text-[13px] text-neutral-500">
-              se construye pieza a pieza, en uso desde el primer día
-            </span>
+            <p className="mt-2.5 text-base sm:text-lg text-[#111111] font-semibold max-w-lg mx-auto">
+              La información, los criterios, los permisos y la trazabilidad de tu empresa
+            </p>
+
+            {/* Progressive piece-by-piece bar */}
+            <div className="mt-5 max-w-lg mx-auto grid grid-cols-5 gap-1.5 sm:gap-2">
+              {segments.map((seg) => (
+                <div key={seg.label} className="flex flex-col items-center gap-1.5">
+                  <div
+                    className={`w-full h-2 rounded-full ${
+                      seg.state === 'done'
+                        ? 'bg-[#E10600]'
+                        : seg.state === 'building'
+                          ? 'bg-[#E10600]/45'
+                          : 'border border-dashed border-[#E10600]/55 bg-white'
+                    }`}
+                  />
+                  <span className="text-[10px] font-mono-code text-neutral-600 hidden sm:block">
+                    {seg.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Sources feeding the slab */}
-          {/* max-w-lg: con seis chips el ancho completo deja uno huérfano en la segunda fila */}
-          <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-4 gap-y-3 sm:gap-y-5 mt-6 max-w-lg mx-auto">
-            {feeds.map((feed, i) => (
-              <motion.div
-                key={feed}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.7 + i * 0.09 }}
-                className="flex flex-col items-center gap-1.5"
-              >
-                <motion.span
-                  animate={{ opacity: [0.3, 1, 0.3], y: [2, -2, 2] }}
-                  transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.35 }}
-                  className="text-[#E10600] text-sm leading-none"
+          {/* Operational sources feeding the layer */}
+          <div className="mt-6">
+            <p className="text-center text-xs font-mono-code uppercase tracking-wider text-neutral-600 mb-3">
+              Fuentes que alimentan la capa
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {feeds.map((feed) => (
+                <span
+                  key={feed}
+                  className="px-3.5 py-1.5 bg-[#FAFAFA] border border-neutral-200 rounded-full text-xs font-medium text-neutral-700"
                 >
-                  ↑
-                </motion.span>
-                <span className="px-3.5 py-1.5 bg-neutral-50 border border-neutral-200 rounded-full text-xs font-medium text-neutral-700 whitespace-nowrap">
                   {feed}
                 </span>
-              </motion.div>
-            ))}
+              ))}
+            </div>
+            <p className="text-center text-xs sm:text-sm text-neutral-600 leading-relaxed mt-4 max-w-2xl mx-auto">
+              Sin reemplazar las herramientas que tu equipo ya domina: conectamos correo, mensajería,
+              CRM, ERP, bases de datos y aplicaciones internas bajo un mismo estándar.
+            </p>
           </div>
-
-          <p className="text-center text-[13px] text-neutral-500 leading-relaxed mt-8 max-w-xl mx-auto">
-            Se conecta a lo que tu equipo ya usa: Slack, correo, tu CRM, tus redes sociales, tus
-            bases de datos, tu ERP, tus propias aplicaciones. Sobre el sustrato trabajan los agentes,
-            las automatizaciones y el software a medida.
-          </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
