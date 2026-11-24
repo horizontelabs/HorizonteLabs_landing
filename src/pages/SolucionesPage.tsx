@@ -269,20 +269,23 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       />
 
       {/* Hero */}
-      <section className="pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
+      <section className="pt-24 sm:pt-34 pb-10 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
         <div className="max-w-6xl mx-auto">
-          <nav aria-label="Ruta de navegación" className="mb-6 text-xs text-neutral-600 flex items-center gap-2">
-            <Link to="/" className="hover:text-[#111111] transition-colors">
+          <nav aria-label="Ruta de navegación" className="mb-3 sm:mb-6 text-xs text-neutral-600 flex items-center gap-1">
+            <Link
+              to="/"
+              className="inline-flex items-center min-h-[44px] min-w-[44px] px-2 -ml-2 hover:text-[#111111] transition-colors"
+            >
               Inicio
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-[#111111] font-medium" aria-current="page">
+            <span className="text-[#111111] font-medium pl-1" aria-current="page">
               Soluciones tecnológicas
             </span>
           </nav>
 
           <div className="max-w-3xl">
-            <h1 className="text-[2.25rem] sm:text-5xl lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111]">
+            <h1 className="text-[2rem] sm:text-5xl lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111]">
               Agentes y automatizaciones operando dentro de tus sistemas reales.
             </h1>
             <p className="mt-5 text-base sm:text-lg lg:text-xl text-neutral-600 leading-relaxed">
@@ -317,12 +320,12 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       {/* Interactive 5-step End-to-End Flow */}
       <section
         id="flujo-vivo"
-        className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
+        className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
       >
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-7 sm:mb-10">
             <div className="max-w-2xl">
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+              <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
                 De un evento operativo a una acción auditable.
               </h2>
               <p className="mt-3 text-base text-neutral-600 leading-relaxed">
@@ -475,7 +478,7 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
                     <h3 className="text-2xl font-bold text-[#111111] tracking-[-0.02em] leading-snug">
                       {currentStep.summary}
                     </h3>
-                    <p className="mt-3 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                    <p className="mt-3 text-base text-neutral-600 leading-relaxed">
                       {currentStep.detail}
                     </p>
 
@@ -486,7 +489,7 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
                           setIsPlaying(false);
                           setActiveStep((prev) => (prev - 1 + flowSteps.length) % flowSteps.length);
                         }}
-                        className="min-h-[42px] px-4 py-2 text-xs font-semibold border border-neutral-300 hover:border-[#111111] rounded-lg text-[#111111] transition-colors cursor-pointer"
+                        className="min-h-[44px] px-4 py-2 text-xs font-semibold border border-neutral-300 hover:border-[#111111] rounded-lg text-[#111111] transition-colors cursor-pointer"
                       >
                         ← Anterior
                       </button>
@@ -496,7 +499,7 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
                           setIsPlaying(false);
                           setActiveStep((prev) => (prev + 1) % flowSteps.length);
                         }}
-                        className="min-h-[42px] px-4 py-2 text-xs font-semibold bg-[#111111] hover:bg-[#E10600] text-white rounded-lg transition-colors cursor-pointer"
+                        className="min-h-[44px] px-4 py-2 text-xs font-semibold bg-[#111111] hover:bg-[#E10600] text-white rounded-lg transition-colors cursor-pointer"
                       >
                         Siguiente paso →
                       </button>
@@ -510,10 +513,10 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Use Cases in Tabs with Repeatable 4-Block Framework */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+      <section className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+          <div className="max-w-2xl mb-7 sm:mb-10">
+            <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Escenarios concretos por tipo de operación.
             </h2>
             <p className="mt-3 text-base sm:text-lg text-neutral-600 leading-relaxed">
@@ -574,7 +577,7 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
                     <FileSearch className="w-3.5 h-3.5 text-[#E10600]" aria-hidden="true" />
                     <span>Problema operativo</span>
                   </div>
-                  <p className="text-sm text-neutral-700 leading-relaxed">{activeTab.problem}</p>
+                  <p className="text-base sm:text-sm text-neutral-700 leading-relaxed">{activeTab.problem}</p>
                 </div>
 
                 <div className="bg-white border border-neutral-200 rounded-xl p-5">
@@ -582,7 +585,7 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
                     <GitBranch className="w-3.5 h-3.5 text-[#E10600]" aria-hidden="true" />
                     <span>Qué ejecuta el flujo</span>
                   </div>
-                  <p className="text-sm text-neutral-700 leading-relaxed">{activeTab.flow}</p>
+                  <p className="text-base sm:text-sm text-neutral-700 leading-relaxed">{activeTab.flow}</p>
                 </div>
 
                 <div className="bg-white border border-neutral-200 rounded-xl p-5">
@@ -607,7 +610,7 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
                     <ShieldCheck className="w-3.5 h-3.5 text-[#E10600]" aria-hidden="true" />
                     <span>Control humano</span>
                   </div>
-                  <p className="text-sm text-neutral-700 leading-relaxed">
+                  <p className="text-base sm:text-sm text-neutral-700 leading-relaxed">
                     {activeTab.humanControl}
                   </p>
                 </div>
@@ -665,26 +668,26 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Building blocks: 3 concrete capability cards */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
+      <section className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+          <div className="max-w-2xl mb-8 sm:mb-12">
+            <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Qué construimos en cada capa de solución.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
             {capabilityBlocks.map((cap) => (
               <div
                 key={cap.title}
-                className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-7 flex flex-col"
+                className="bg-white border border-neutral-200 rounded-xl p-5 sm:p-7 flex flex-col"
               >
                 <div className="w-10 h-10 rounded-lg bg-[#FAFAFA] border border-neutral-200 flex items-center justify-center text-[#E10600] mb-5">
                   <cap.icon className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl font-bold text-[#111111] tracking-[-0.02em]">{cap.title}</h3>
-                <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{cap.lead}</p>
-                <ul className="mt-5 pt-4 border-t border-neutral-200 space-y-2.5 text-sm text-neutral-700 flex-1">
+                <p className="mt-2 text-base sm:text-sm text-neutral-600 leading-relaxed">{cap.lead}</p>
+                <ul className="mt-5 pt-4 border-t border-neutral-200 space-y-2.5 text-base sm:text-sm text-neutral-700 flex-1">
                   {cap.bullets.map((b) => (
                     <li key={b} className="flex items-start gap-2">
                       <CheckCircle2
@@ -705,35 +708,35 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       <GovernanceSection compact id="control-soluciones" />
 
       {/* Honest verifiable commitments (no fake client KPIs) */}
-      <section className="py-16 sm:py-20 px-5 sm:px-8 lg:px-14 bg-[#111111] text-white">
+      <section className="py-12 sm:py-20 px-5 sm:px-8 lg:px-14 bg-[#111111] text-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em] mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em] mb-7 sm:mb-10">
             Principios medibles desde el primer ciclo.
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-white/15 rounded-xl p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="border border-white/15 rounded-xl p-5 sm:p-6">
               <span className="block text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-white tabular-nums">
                 Día 1
               </span>
-              <p className="mt-3 text-sm text-neutral-300 leading-relaxed">
+              <p className="mt-3 text-base sm:text-sm text-neutral-300 leading-relaxed">
                 Cada etapa queda instalada y en uso real desde la primera integración — sin meses de
                 diagnóstico en papel.
               </p>
             </div>
-            <div className="border border-white/15 rounded-xl p-6">
+            <div className="border border-white/15 rounded-xl p-5 sm:p-6">
               <span className="block text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-white tabular-nums">
                 100 %
               </span>
-              <p className="mt-3 text-sm text-neutral-300 leading-relaxed">
+              <p className="mt-3 text-base sm:text-sm text-neutral-300 leading-relaxed">
                 Trazabilidad de cada lectura, criterio aplicado, aprobación humana y acción ejecutada
                 sobre tus sistemas.
               </p>
             </div>
-            <div className="border border-white/15 rounded-xl p-6">
+            <div className="border border-white/15 rounded-xl p-5 sm:p-6">
               <span className="block text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-white tabular-nums">
                 0
               </span>
-              <p className="mt-3 text-sm text-neutral-300 leading-relaxed">
+              <p className="mt-3 text-base sm:text-sm text-neutral-300 leading-relaxed">
                 Reemplazo forzado de herramientas: trabajamos sobre el CRM, ERP, correo y bases que
                 tu equipo ya opera.
               </p>
@@ -743,13 +746,13 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Cross-link to Engineering */}
-      <section className="py-12 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-2xl bg-[#FAFAFA] border border-neutral-200">
+      <section className="py-10 sm:py-12 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 sm:p-8 rounded-2xl bg-[#FAFAFA] border border-neutral-200">
           <div>
             <h2 className="text-xl font-bold text-[#111111]">
               ¿También necesitas construir software propio para tu operación?
             </h2>
-            <p className="mt-1 text-sm text-neutral-600">
+            <p className="mt-1 text-base sm:text-sm text-neutral-600">
               Desarrollamos aplicaciones a medida que tu equipo usa a diario y tus agentes pueden
               operar desde el mismo sustrato.
             </p>

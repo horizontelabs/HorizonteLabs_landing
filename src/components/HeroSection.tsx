@@ -16,16 +16,15 @@ const pillars = [
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) => {
   return (
-    <section className="relative min-h-[82vh] flex flex-col justify-center pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-24 px-5 sm:px-8 lg:px-14 bg-white overflow-hidden">
+    <section className="relative min-h-[76svh] sm:min-h-[82svh] flex flex-col justify-center pt-24 sm:pt-36 lg:pt-40 pb-12 sm:pb-24 px-5 sm:px-8 lg:px-14 bg-white overflow-hidden">
       {/* Subtle Neural Network Particle Canvas Background */}
       <HeroNeuralCanvas />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         <motion.h1
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[2.35rem] sm:text-5xl lg:text-[4rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111] max-w-4xl"
+          className="text-[2.125rem] sm:text-5xl lg:text-[4rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111] max-w-4xl"
         >
           Donde los agentes <span className="text-[#D91914]">viven</span>,{' '}
           <span className="text-[#D91914]">actúan</span> y{' '}
@@ -78,7 +77,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.55, delay: 0.24 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-xs sm:text-sm text-neutral-600"
+          className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-sm text-neutral-600"
         >
           {pillars.map((pillar) => (
             <li key={pillar} className="inline-flex items-center gap-2">

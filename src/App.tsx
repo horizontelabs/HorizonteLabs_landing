@@ -3,26 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { Suspense, lazy, useState } from 'react';
+import React, { useState } from 'react';
 import { MotionConfig } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ConsultationModal } from './components/ConsultationModal';
+import { HomePage } from './pages/HomePage';
+import { SolucionesPage } from './pages/SolucionesPage';
+import { IngenieriaPage } from './pages/IngenieriaPage';
+import { NosotrosPage } from './pages/NosotrosPage';
 import { Link, RouterProvider, useRouter } from './lib/router';
 import type { DiagnosticContext } from './lib/siteConfig';
-
-const HomePage = lazy(() =>
-  import('./pages/HomePage').then((m) => ({ default: m.HomePage }))
-);
-const SolucionesPage = lazy(() =>
-  import('./pages/SolucionesPage').then((m) => ({ default: m.SolucionesPage }))
-);
-const IngenieriaPage = lazy(() =>
-  import('./pages/IngenieriaPage').then((m) => ({ default: m.IngenieriaPage }))
-);
-const NosotrosPage = lazy(() =>
-  import('./pages/NosotrosPage').then((m) => ({ default: m.NosotrosPage }))
-);
 
 function AppShell() {
   const { pathname } = useRouter();
@@ -87,19 +78,11 @@ function AppShell() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-[#111111] font-sans selection:bg-[#E10600] selection:text-white relative">
+    <div className="min-h-[100svh] flex flex-col bg-white text-[#111111] font-sans selection:bg-[#E10600] selection:text-white relative">
       <Navbar onOpenConsultation={handleOpenConsultation} />
 
       <main id="contenido-principal" className="flex-1">
-        <Suspense
-          fallback={
-            <div className="min-h-[60vh] flex items-center justify-center pt-28 text-sm font-mono-code text-neutral-600">
-              Cargando…
-            </div>
-          }
-        >
-          {renderRoute()}
-        </Suspense>
+        {renderRoute()}
       </main>
 
       <Footer onOpenConsultation={handleOpenConsultation} />

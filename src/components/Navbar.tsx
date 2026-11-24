@@ -61,17 +61,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [mobileOpen]);
+
   const currentContext: DiagnosticContext =
     pathname === '/soluciones' ? 'soluciones' : pathname === '/ingenieria' ? 'ingenieria' : 'general';
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,padding,box-shadow] duration-200 ${
-        scrolled || mobileOpen
-          ? 'bg-white/95 backdrop-blur-md border-b border-neutral-200 py-3 shadow-[0_1px_4px_rgba(17,17,17,0.04)]'
-          : 'bg-white/85 backdrop-blur-sm border-b border-transparent py-4'
-      }`}
-    >
+    <>
+      {mobileOpen && (
+        <div
+          aria-hidden="true"
+          onClick={() => setMobileOpen(false)}
+          className="lg:hidden fixed inset-0 z-40 bg-[#111111]/40 backdrop-blur-[1px]"
+        />
+      )}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,padding,box-shadow] duration-200 ${
+          scrolled || mobileOpen
+            ? 'bg-white/95 backdrop-blur-md border-b border-neutral-200 pt-[calc(0.75rem+env(safe-area-inset-top))] pb-3 shadow-[0_1px_4px_rgba(17,17,17,0.04)]'
+            : 'bg-white/85 backdrop-blur-sm border-b border-transparent pt-[calc(1rem+env(safe-area-inset-top))] pb-4'
+        }`}
+      >
       <a
         href="#contenido-principal"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2.5 focus:bg-[#111111] focus:text-white focus:rounded-md focus:text-sm focus:font-medium"
@@ -95,8 +112,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
           </span>
         </Link>
 
-        {/* Desktop navigation */}
-        <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-1 lg:gap-2">
+        {/* Desktop navigation (lg: 1024px+ so tablets at 768px use touch drawer) */}
+        <nav aria-label="Navegación principal" className="hidden lg:flex items-center gap-1 lg:gap-2">
           <Link
             to="/#sustrato"
             className="px-3.5 py-2.5 text-sm font-medium text-neutral-700 hover:text-[#111111] rounded-md transition-colors"
@@ -200,7 +217,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-drawer"
             aria-label={mobileOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
-            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-neutral-200 text-[#111111] hover:bg-neutral-50 transition-colors cursor-pointer"
+            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-neutral-200 text-[#111111] hover:bg-neutral-50 active:bg-neutral-100 transition-colors cursor-pointer"
           >
             {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
           </button>
@@ -211,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
       {mobileOpen && (
         <div
           id="mobile-nav-drawer"
-          className="md:hidden border-t border-neutral-200 bg-white px-5 pt-4 pb-6 shadow-[0_16px_32px_rgba(17,17,17,0.08)]"
+          className="lg:hidden border-t border-neutral-200 bg-white px-5 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-[0_16px_32px_rgba(17,17,17,0.08)] max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain"
         >
           <nav aria-label="Navegación móvil" className="flex flex-col gap-1">
             <Link
@@ -272,5 +289,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
         </div>
       )}
     </header>
+    </>
   );
 };

@@ -39,14 +39,17 @@ export const HeroNeuralCanvas: React.FC = () => {
 
     const resizeAndInit = () => {
       if (!canvas.parentElement) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.parentElement.clientWidth || window.innerWidth;
       height = canvas.parentElement.clientHeight || window.innerHeight;
+      const isNarrowMobile = width < 640;
+      const dpr = Math.min(window.devicePixelRatio || 1, isNarrowMobile ? 1.5 : 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const particleCount = Math.min(Math.floor((width * height) / 12000), 75);
+      const particleCount = isNarrowMobile
+        ? Math.min(Math.floor((width * height) / 22000), 26)
+        : Math.min(Math.floor((width * height) / 12000), 75);
       particles.length = 0;
       pulses.length = 0;
       for (let i = 0; i < particleCount; i++) {
@@ -230,7 +233,7 @@ export const HeroNeuralCanvas: React.FC = () => {
       ref={canvasRef}
       id="hero-neural-canvas"
       aria-hidden="true"
-      className="absolute inset-0 pointer-events-none w-full h-full opacity-85 z-0"
+      className="absolute inset-0 pointer-events-none w-full h-full opacity-60 sm:opacity-85 z-0"
     />
   );
 };

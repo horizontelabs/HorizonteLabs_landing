@@ -18,10 +18,10 @@ export const CTASection: React.FC<CTASectionProps> = ({
   return (
     <section
       id="contacto"
-      className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200"
+      className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200"
     >
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+        <h2 className="text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
           {title}
         </h2>
 

@@ -53,11 +53,11 @@ export const BlueprintFrame: React.FC<BlueprintFrameProps> = ({
       <div aria-hidden="true" className="absolute inset-0 blueprint-grid pointer-events-none" />
 
       <div className="relative z-10 flex items-center justify-between gap-3">
-        <span className="text-[11px] font-mono-code uppercase tracking-[0.14em] text-neutral-600 font-medium">
+        <span className="text-xs sm:text-[11px] font-mono-code uppercase tracking-[0.14em] text-neutral-600 font-medium">
           {label}
         </span>
         {badge && (
-          <span className="text-[11px] font-mono-code text-neutral-600 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">
+          <span className="text-xs sm:text-[11px] font-mono-code text-neutral-600 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded shrink-0">
             {badge}
           </span>
         )}

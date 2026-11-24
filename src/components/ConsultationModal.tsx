@@ -247,7 +247,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 10 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-xl bg-white rounded-2xl border border-neutral-200 shadow-[0_24px_60px_rgba(17,17,17,0.18)] p-6 sm:p-8 z-10 my-auto max-h-[92vh] overflow-y-auto overscroll-contain"
+            className="relative w-full max-w-xl bg-white rounded-2xl border border-neutral-200 shadow-[0_24px_60px_rgba(17,17,17,0.18)] p-6 sm:p-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pb-8 z-10 my-auto max-h-[92dvh] overflow-y-auto overscroll-contain"
           >
             <button
               type="button"
@@ -320,7 +320,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                       onChange={(e) =>
                         setFormData({ ...formData, interest: e.target.value as DiagnosticContext })
                       }
-                      className="w-full min-h-[44px] px-3.5 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-sm text-[#111111] focus:border-[#E10600] transition-colors"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-base sm:text-sm text-[#111111] focus:border-[#E10600] transition-colors"
                     >
                       <option value="general">{DIAGNOSTIC_CONTEXT_LABELS.general}</option>
                       <option value="soluciones">{DIAGNOSTIC_CONTEXT_LABELS.soluciones}</option>
@@ -354,7 +354,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                           if (fieldErrors.name) setFieldErrors({ ...fieldErrors, name: '' });
                         }}
                         placeholder="Ej. Martín Larraín…"
-                        className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors"
+                        className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-base sm:text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors"
                       />
                     </div>
                     {fieldErrors.name && (
@@ -392,7 +392,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                             if (fieldErrors.email) setFieldErrors({ ...fieldErrors, email: '' });
                           }}
                           placeholder="martin@empresa.com…"
-                          className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors"
+                          className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-base sm:text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors"
                         />
                       </div>
                       {fieldErrors.email && (
@@ -427,7 +427,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                             if (fieldErrors.company) setFieldErrors({ ...fieldErrors, company: '' });
                           }}
                           placeholder="Nombre de la empresa…"
-                          className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors"
+                          className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-base sm:text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors"
                         />
                       </div>
                       {fieldErrors.company && (
@@ -451,7 +451,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                             key={tool}
                             aria-pressed={isSelected}
                             onClick={() => toggleTool(tool)}
-                            className={`min-h-[40px] px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer border ${
+                            className={`min-h-[44px] px-3.5 py-2 rounded-lg text-sm sm:text-xs font-medium transition-colors cursor-pointer border ${
                               isSelected
                                 ? 'bg-[#111111] text-white border-[#111111]'
                                 : 'bg-[#FAFAFA] text-neutral-700 hover:bg-neutral-100 border-neutral-300'
@@ -479,7 +479,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Ej. Seguimiento comercial en CRM, reportes semanales, portal interno conectado a ERP…"
-                      className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors resize-none"
+                      className="w-full px-3.5 py-2.5 bg-[#FAFAFA] border border-neutral-300 rounded-lg text-base sm:text-sm text-[#111111] placeholder:text-neutral-500 focus:border-[#E10600] transition-colors resize-none"
                     />
                   </div>
 

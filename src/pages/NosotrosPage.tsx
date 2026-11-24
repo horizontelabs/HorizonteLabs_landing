@@ -43,20 +43,23 @@ export const NosotrosPage: React.FC<NosotrosPageProps> = ({ onOpenConsultation }
         }}
       />
 
-      <section className="pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
+      <section className="pt-24 sm:pt-34 pb-10 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
         <div className="max-w-6xl mx-auto">
-          <nav aria-label="Ruta de navegación" className="mb-6 text-xs text-neutral-600 flex items-center gap-2">
-            <Link to="/" className="hover:text-[#111111] transition-colors">
+          <nav aria-label="Ruta de navegación" className="mb-3 sm:mb-6 text-xs text-neutral-600 flex items-center gap-1">
+            <Link
+              to="/"
+              className="inline-flex items-center min-h-[44px] min-w-[44px] px-2 -ml-2 hover:text-[#111111] transition-colors"
+            >
               Inicio
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-[#111111] font-medium" aria-current="page">
+            <span className="text-[#111111] font-medium pl-1" aria-current="page">
               Nosotros
             </span>
           </nav>
 
           <div className="max-w-3xl">
-            <h1 className="text-[2.25rem] sm:text-5xl lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111]">
+            <h1 className="text-[2rem] sm:text-5xl lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111]">
               Ingeniería aplicada para que la IA opere en el mundo real.
             </h1>
             <p className="mt-5 text-base sm:text-lg lg:text-xl text-neutral-600 leading-relaxed">
@@ -81,16 +84,16 @@ export const NosotrosPage: React.FC<NosotrosPageProps> = ({ onOpenConsultation }
         </div>
       </section>
 
-      <section className="py-16 sm:py-20 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
+      <section className="py-12 sm:py-20 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em] text-[#111111] mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em] text-[#111111] mb-6 sm:mb-8">
             Cómo entendemos el trabajo técnico.
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {principles.map((p) => (
-              <div key={p.title} className="bg-white border border-neutral-200 rounded-xl p-6">
+              <div key={p.title} className="bg-white border border-neutral-200 rounded-xl p-5 sm:p-6">
                 <h3 className="text-lg font-bold text-[#111111]">{p.title}</h3>
-                <p className="mt-2.5 text-sm text-neutral-600 leading-relaxed">{p.description}</p>
+                <p className="mt-2.5 text-base sm:text-sm text-neutral-600 leading-relaxed">{p.description}</p>
               </div>
             ))}
           </div>

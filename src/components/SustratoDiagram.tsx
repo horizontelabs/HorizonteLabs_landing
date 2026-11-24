@@ -88,12 +88,12 @@ export const SustratoDiagram: React.FC = () => {
   return (
     <section
       id="sustrato"
-      className="py-20 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
+      className="py-12 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
     >
       <div className="max-w-5xl mx-auto">
         {/* Header without repeating Hero */}
-        <div className="max-w-3xl mb-12 sm:mb-14">
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+        <div className="max-w-3xl mb-8 sm:mb-14">
+          <h2 className="text-[1.75rem] sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
             Una capa compartida, construida pieza a pieza.
           </h2>
           <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed">
@@ -167,7 +167,7 @@ export const SustratoDiagram: React.FC = () => {
                 <h3 className="text-xl sm:text-2xl font-bold text-[#111111] tracking-[-0.02em] leading-snug">
                   {activeConsumer.title}
                 </h3>
-                <p className="mt-3 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                <p className="mt-3 text-base text-neutral-600 leading-relaxed">
                   {activeConsumer.description}
                 </p>
                 <Link
@@ -241,7 +241,7 @@ export const SustratoDiagram: React.FC = () => {
                 </span>
               ))}
             </div>
-            <p className="text-center text-xs sm:text-sm text-neutral-600 leading-relaxed mt-4 max-w-2xl mx-auto">
+            <p className="text-center text-base sm:text-sm text-neutral-600 leading-relaxed mt-4 max-w-2xl mx-auto">
               Sin reemplazar las herramientas que tu equipo ya domina: conectamos correo, mensajería,
               CRM, ERP, bases de datos y aplicaciones internas bajo un mismo estándar.
             </p>

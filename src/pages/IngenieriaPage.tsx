@@ -274,20 +274,23 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       />
 
       {/* Hero */}
-      <section className="pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
+      <section className="pt-24 sm:pt-34 pb-10 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
         <div className="max-w-6xl mx-auto">
-          <nav aria-label="Ruta de navegación" className="mb-6 text-xs text-neutral-600 flex items-center gap-2">
-            <Link to="/" className="hover:text-[#111111] transition-colors">
+          <nav aria-label="Ruta de navegación" className="mb-3 sm:mb-6 text-xs text-neutral-600 flex items-center gap-1">
+            <Link
+              to="/"
+              className="inline-flex items-center min-h-[44px] min-w-[44px] px-2 -ml-2 hover:text-[#111111] transition-colors"
+            >
               Inicio
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-[#111111] font-medium" aria-current="page">
+            <span className="text-[#111111] font-medium pl-1" aria-current="page">
               Ingeniería de software
             </span>
           </nav>
 
           <div className="max-w-3xl">
-            <h1 className="text-[2.25rem] sm:text-5xl lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111]">
+            <h1 className="text-[2rem] sm:text-5xl lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111111]">
               Software a medida para tu operación, listo para tus agentes.
             </h1>
             <p className="mt-5 text-base sm:text-lg lg:text-xl text-neutral-600 leading-relaxed">
@@ -323,12 +326,12 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       {/* Centerpiece Kinetic Demo: Vista Equipo <-> Vista Agente */}
       <section
         id="doble-interfaz"
-        className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
+        className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
       >
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 sm:gap-6 mb-7 sm:mb-10">
             <div className="max-w-2xl">
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+              <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
                 Una misma aplicación, dos superficies de trabajo.
               </h2>
               <p className="mt-3 text-base text-neutral-600 leading-relaxed">
@@ -441,7 +444,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                   className="mt-5 pt-5 border-t border-neutral-200 flex-1"
                 >
                   {surfaceMode === 'equipo' ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-base sm:text-sm">
                       <div className="p-4 rounded-xl bg-[#FAFAFA] border border-neutral-200">
                         <span className="block text-xs font-mono-code uppercase text-neutral-600 mb-1">
                           Regla visible para el equipo
@@ -482,7 +485,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                 <span className="text-xs font-mono-code uppercase tracking-wider text-[#C50500] font-semibold">
                   01 · Primero resuelve al equipo
                 </span>
-                <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
+                <p className="mt-2 text-base sm:text-sm text-neutral-700 leading-relaxed">
                   La aplicación se diseña para que las personas trabajen con claridad y velocidad,
                   sin agregar fricción innecesaria.
                 </p>
@@ -491,7 +494,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                 <span className="text-xs font-mono-code uppercase tracking-wider text-[#C50500] font-semibold">
                   02 · Sin doble desarrollo
                 </span>
-                <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
+                <p className="mt-2 text-base sm:text-sm text-neutral-700 leading-relaxed">
                   Las mismas reglas, permisos y validaciones de negocio gobiernan tanto la interfaz
                   humana como las acciones de los agentes.
                 </p>
@@ -500,7 +503,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                 <span className="text-xs font-mono-code uppercase tracking-wider text-[#C50500] font-semibold">
                   03 · Base que se acumula
                 </span>
-                <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
+                <p className="mt-2 text-base sm:text-sm text-neutral-700 leading-relaxed">
                   Cada herramienta nueva enriquece el sustrato y habilita nuevas automatizaciones en
                   días en vez de meses.
                 </p>
@@ -511,10 +514,10 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       </section>
 
       {/* What we build: repeatable tabs + blueprint diagram */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+      <section className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+          <div className="max-w-2xl mb-7 sm:mb-10">
+            <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Qué construimos según la etapa de tu operación.
             </h2>
             <p className="mt-3 text-base sm:text-lg text-neutral-600 leading-relaxed">
@@ -571,7 +574,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                     <GitMerge className="w-3.5 h-3.5 text-[#E10600]" aria-hidden="true" />
                     <span>Cuándo aplica</span>
                   </div>
-                  <p className="text-sm text-neutral-700 leading-relaxed">
+                  <p className="text-base sm:text-sm text-neutral-700 leading-relaxed">
                     {activeBuildTab.whenApplies}
                   </p>
                 </div>
@@ -581,7 +584,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                     <Code2 className="w-3.5 h-3.5 text-[#E10600]" aria-hidden="true" />
                     <span>Qué construimos</span>
                   </div>
-                  <p className="text-sm text-neutral-700 leading-relaxed">
+                  <p className="text-base sm:text-sm text-neutral-700 leading-relaxed">
                     {activeBuildTab.whatWeBuild}
                   </p>
                 </div>
@@ -591,7 +594,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                     <Layers className="w-3.5 h-3.5 text-[#E10600]" aria-hidden="true" />
                     <span>Conexión con Sustrato</span>
                   </div>
-                  <p className="text-sm text-neutral-700 leading-relaxed">
+                  <p className="text-base sm:text-sm text-neutral-700 leading-relaxed">
                     {activeBuildTab.sustratoConnection}
                   </p>
                 </div>
@@ -601,7 +604,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                     <Database className="w-3.5 h-3.5 text-[#E10600]" aria-hidden="true" />
                     <span>Entregables clave</span>
                   </div>
-                  <ul className="space-y-1.5 text-sm text-[#111111]">
+                  <ul className="space-y-1.5 text-base sm:text-sm text-[#111111]">
                     {activeBuildTab.deliverables.map((item) => (
                       <li key={item} className="flex items-center gap-2">
                         <CheckCircle2
@@ -655,26 +658,26 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Engineering Standards 2x2 */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
+      <section className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+          <div className="max-w-2xl mb-8 sm:mb-12">
+            <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Estándares de ingeniería sin letra chica.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
             {engineeringStandards.map((std) => (
               <div
                 key={std.title}
-                className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-7 flex items-start gap-4"
+                className="bg-white border border-neutral-200 rounded-xl p-5 sm:p-7 flex items-start gap-4"
               >
                 <div className="w-10 h-10 rounded-lg bg-[#FAFAFA] border border-neutral-200 flex items-center justify-center text-[#E10600] shrink-0">
                   <std.icon className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#111111]">{std.title}</h3>
-                  <p className="mt-1.5 text-sm text-neutral-600 leading-relaxed">
+                  <p className="mt-1.5 text-base sm:text-sm text-neutral-600 leading-relaxed">
                     {std.description}
                   </p>
                 </div>
@@ -685,10 +688,10 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Interactive 4-phase engineering cycle */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+      <section className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+          <div className="max-w-2xl mb-7 sm:mb-10">
+            <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Ciclo de ingeniería paso a paso.
             </h2>
             <p className="mt-3 text-base text-neutral-600 leading-relaxed">
@@ -757,7 +760,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                       <span className="block text-xs font-mono-code uppercase text-neutral-600 mb-1">
                         Qué valida tu equipo
                       </span>
-                      <p className="text-sm font-medium text-[#111111]">
+                      <p className="text-base sm:text-sm font-medium text-[#111111]">
                         {activeCycle.clientValidates}
                       </p>
                     </div>
@@ -765,7 +768,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
                       <span className="block text-xs font-mono-code uppercase text-neutral-600 mb-1">
                         Entregable concreto
                       </span>
-                      <p className="text-sm font-medium text-[#111111]">{activeCycle.deliverable}</p>
+                      <p className="text-base sm:text-sm font-medium text-[#111111]">{activeCycle.deliverable}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -776,13 +779,13 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Cross-link to Soluciones */}
-      <section className="py-12 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-2xl bg-[#FAFAFA] border border-neutral-200">
+      <section className="py-10 sm:py-12 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 sm:p-8 rounded-2xl bg-[#FAFAFA] border border-neutral-200">
           <div>
             <h2 className="text-xl font-bold text-[#111111]">
               ¿Ya cuentas con tus sistemas y buscas conectar agentes y flujos?
             </h2>
-            <p className="mt-1 text-sm text-neutral-600">
+            <p className="mt-1 text-base sm:text-sm text-neutral-600">
               Revisa cómo desplegamos automatizaciones, integraciones y agentes trazables sobre tu
               operación actual.
             </p>

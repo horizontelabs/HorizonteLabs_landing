@@ -21,11 +21,11 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ id, title, subtitle,
   return (
     <section
       id={id}
-      className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
+      className="py-12 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
     >
       <div className="max-w-4xl mx-auto">
-        <div className="mb-10 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+        <div className="mb-7 sm:mb-12">
+          <h2 className="text-[1.75rem] sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
             {title}
           </h2>
           {subtitle && (
@@ -52,7 +52,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ id, title, subtitle,
                     onClick={() => setOpenId(isOpen ? null : item.id)}
                     className="w-full min-h-[56px] px-5 sm:px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-[#FAFAFA] transition-colors cursor-pointer"
                   >
-                    <span className="text-sm sm:text-base font-semibold text-[#111111] leading-snug">
+                    <span className="text-base font-semibold text-[#111111] leading-snug">
                       {item.question}
                     </span>
                     <span
@@ -80,7 +80,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ id, title, subtitle,
                       transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 sm:px-6 pb-5 pt-1 text-sm sm:text-base text-neutral-600 leading-relaxed max-w-3xl">
+                      <div className="px-5 sm:px-6 pb-5 pt-1 text-base text-neutral-600 leading-relaxed max-w-3xl">
                         {item.answer}
                       </div>
                     </motion.div>

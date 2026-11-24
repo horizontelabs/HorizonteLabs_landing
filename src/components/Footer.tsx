@@ -11,7 +11,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
   return (
     <footer className="bg-[#FAFAFA] border-t border-neutral-200 text-[#111111]">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-14 py-14 sm:py-16">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-14 pt-12 sm:pt-16 pb-[max(3rem,env(safe-area-inset-bottom))] sm:pb-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12">
           {/* Brand column */}
           <div className="md:col-span-5">
@@ -22,13 +22,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
                 <span className="text-xl font-bold tracking-[-0.02em] text-[#E10600]">.ai</span>
               </span>
             </Link>
-            <p className="mt-4 text-sm text-neutral-600 leading-relaxed max-w-sm">
+            <p className="mt-4 text-base sm:text-sm text-neutral-600 leading-relaxed max-w-sm">
               Construimos la capa donde los agentes de IA leen, actúan y se integran con tu operación:
               tus herramientas, tus criterios y trazabilidad completa.
             </p>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="mt-5 inline-flex items-center gap-2 min-h-[44px] text-sm font-medium text-[#111111] hover:text-[#E10600] transition-colors"
+              className="mt-5 inline-flex items-center gap-2 min-h-[44px] text-base sm:text-sm font-medium text-[#111111] hover:text-[#E10600] transition-colors"
             >
               <Mail className="w-4 h-4 text-neutral-600" aria-hidden="true" />
               <span>{CONTACT_EMAIL}</span>
@@ -40,29 +40,29 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
             <h2 className="text-xs font-mono-code uppercase tracking-wider font-semibold text-neutral-600 mb-3">
               Sitio
             </h2>
-            <ul className="space-y-1 text-sm">
+            <ul className="space-y-1 text-base sm:text-sm">
               <li>
-                <Link to="/" className="inline-flex items-center min-h-[40px] text-neutral-700 hover:text-[#111111] transition-colors">
+                <Link to="/" className="inline-flex items-center min-h-[44px] min-w-[44px] text-neutral-700 hover:text-[#111111] transition-colors">
                   Inicio
                 </Link>
               </li>
               <li>
-                <Link to="/soluciones" className="inline-flex items-center min-h-[40px] text-neutral-700 hover:text-[#111111] transition-colors">
+                <Link to="/soluciones" className="inline-flex items-center min-h-[44px] text-neutral-700 hover:text-[#111111] transition-colors">
                   Soluciones tecnológicas
                 </Link>
               </li>
               <li>
-                <Link to="/ingenieria" className="inline-flex items-center min-h-[40px] text-neutral-700 hover:text-[#111111] transition-colors">
+                <Link to="/ingenieria" className="inline-flex items-center min-h-[44px] text-neutral-700 hover:text-[#111111] transition-colors">
                   Ingeniería de software
                 </Link>
               </li>
               <li>
-                <Link to="/nosotros" className="inline-flex items-center min-h-[40px] text-neutral-700 hover:text-[#111111] transition-colors">
+                <Link to="/nosotros" className="inline-flex items-center min-h-[44px] text-neutral-700 hover:text-[#111111] transition-colors">
                   Nosotros
                 </Link>
               </li>
               <li>
-                <Link to="/#faq" className="inline-flex items-center min-h-[40px] text-neutral-700 hover:text-[#111111] transition-colors">
+                <Link to="/#faq" className="inline-flex items-center min-h-[44px] text-neutral-700 hover:text-[#111111] transition-colors">
                   Preguntas frecuentes
                 </Link>
               </li>
@@ -74,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
             <h2 className="text-xs font-mono-code uppercase tracking-wider font-semibold text-neutral-600 mb-3">
               Primer paso
             </h2>
-            <p className="text-sm text-neutral-600 leading-relaxed mb-4">
+            <p className="text-base sm:text-sm text-neutral-600 leading-relaxed mb-4">
               Revisamos tu operación actual, identificamos qué conviene conectar primero y te entregamos
               una propuesta acotada por etapas.
             </p>
@@ -86,12 +86,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
               <span>Agendar diagnóstico</span>
               <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
             </button>
-            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-xs text-neutral-600">
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-sm sm:text-xs text-neutral-600">
               <a
                 href="https://www.linkedin.com/in/francisco-andrades-mart%C3%ADnez-29b6101ab/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center min-h-[36px] hover:text-[#111111] underline underline-offset-4 decoration-neutral-300 hover:decoration-[#111111]"
+                className="inline-flex items-center min-h-[44px] hover:text-[#111111] underline underline-offset-4 decoration-neutral-300 hover:decoration-[#111111]"
               >
                 LinkedIn Francisco
               </a>
@@ -99,7 +99,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
                 href="https://www.linkedin.com/in/ignacio-rubi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center min-h-[36px] hover:text-[#111111] underline underline-offset-4 decoration-neutral-300 hover:decoration-[#111111]"
+                className="inline-flex items-center min-h-[44px] hover:text-[#111111] underline underline-offset-4 decoration-neutral-300 hover:decoration-[#111111]"
               >
                 LinkedIn Ignacio
               </a>
