@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowDown, ArrowUpRight, Check } from 'lucide-react';
+import { HeroNeuralCanvas } from './HeroNeuralCanvas';
 import type { DiagnosticContext } from '../lib/siteConfig';
 
 interface HeroSectionProps {
@@ -15,12 +16,9 @@ const pillars = [
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) => {
   return (
-    <section className="relative pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-24 px-5 sm:px-8 lg:px-14 bg-white overflow-hidden">
-      {/* Subtle architectural axis frame */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(ellipse_at_top,rgba(225,6,0,0.045),transparent_65%)]"
-      />
+    <section className="relative min-h-[82vh] flex flex-col justify-center pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-24 px-5 sm:px-8 lg:px-14 bg-white overflow-hidden">
+      {/* Subtle Neural Network Particle Canvas Background */}
+      <HeroNeuralCanvas />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
         <motion.h1
