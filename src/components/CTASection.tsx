@@ -1,77 +1,55 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
+import { CONTACT_EMAIL, type DiagnosticContext } from '../lib/siteConfig';
 
 interface CTASectionProps {
-  onOpenConsultation: () => void;
+  onOpenConsultation: (context?: DiagnosticContext) => void;
+  context?: DiagnosticContext;
+  title?: string;
+  description?: string;
 }
 
-export const CTASection: React.FC<CTASectionProps> = ({ onOpenConsultation }) => {
+export const CTASection: React.FC<CTASectionProps> = ({
+  onOpenConsultation,
+  context = 'general',
+  title = 'Comencemos revisando juntos tu operación.',
+  description = 'En una sesión de 30 minutos mapeamos tus herramientas actuales, detectamos el primer proceso con retorno real y definimos la etapa inicial sin compromiso.',
+}) => {
   return (
-    <section id="contacto" className="py-16 sm:py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-white border-t border-neutral-200/70 relative overflow-hidden">
-      {/* Background soft subtle luxury radial gradient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(225,6,0,0.035),transparent_70%)] pointer-events-none" />
+    <section
+      id="contacto"
+      className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200"
+    >
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
+          {title}
+        </h2>
 
-      <div className="max-w-4xl mx-auto text-center relative z-10">
-        {/* Kicker */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-[12px] font-mono-code uppercase tracking-[0.24em] text-[#E10600] font-semibold mb-4"
-        >
-          El siguiente paso
-        </motion.p>
+        <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+          {description}
+        </p>
 
-        {/* H2 */}
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-tight mb-8"
-        >
-          Comencemos revisando juntos tu operación.
-        </motion.h2>
-
-        {/* Paragraph */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-base sm:text-lg md:text-xl text-neutral-600 leading-relaxed font-normal max-w-2xl mx-auto mb-12"
-        >
-          Nos reunimos a revisar cómo trabaja tu equipo e identificamos sus primeras necesidades. A partir de ahí, el servicio avanza etapa por etapa, junto con los resultados.
-        </motion.p>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
+        <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <button
             id="main-footer-cta"
-            onClick={onOpenConsultation}
-            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#E10600] hover:bg-[#c90500] text-white text-base font-semibold tracking-wide rounded-md transition-all duration-300 shadow-[0_4px_24px_rgba(225,6,0,0.28)] hover:shadow-[0_8px_36px_rgba(225,6,0,0.42)] cursor-pointer"
+            type="button"
+            onClick={() => onOpenConsultation(context)}
+            className="group inline-flex items-center justify-center gap-2.5 min-h-[52px] px-8 py-3.5 bg-[#E10600] hover:bg-[#C50500] text-white text-sm sm:text-base font-semibold rounded-lg transition-colors duration-200 shadow-[0_8px_24px_rgba(225,6,0,0.2)] cursor-pointer"
           >
-            <span>Conversemos el primer paso</span>
-            <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <span>Agendar diagnóstico</span>
+            <ArrowUpRight
+              aria-hidden="true"
+              className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
           </button>
-        </motion.div>
-      </div>
 
-      {/* Footer Exact Text */}
-      <div className="max-w-7xl mx-auto mt-24 pt-10 border-t border-neutral-200/80 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 font-mono-code gap-4">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#E10600]" />
-          <span>Donde los agentes viven, actúan y entienden de tu operación.</span>
-        </div>
-        <div className="text-neutral-400">
-          SUSTRATO.AI © {new Date().getFullYear()}
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="inline-flex items-center justify-center gap-2 min-h-[52px] px-6 py-3.5 text-sm sm:text-base font-medium text-[#111111] bg-white border border-neutral-300 hover:border-[#111111] rounded-lg transition-colors"
+          >
+            <Mail className="w-4 h-4 text-neutral-600" aria-hidden="true" />
+            <span>{CONTACT_EMAIL}</span>
+          </a>
         </div>
       </div>
     </section>
