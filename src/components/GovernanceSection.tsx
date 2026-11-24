@@ -1,243 +1,228 @@
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { CheckCircle2, Lock, ShieldCheck, UserCheck } from 'lucide-react';
+import React, { useId, useState } from 'react';
+import { AlertTriangle, CheckCircle2, ChevronRight, Clock } from 'lucide-react';
 
-type GovernanceMode = 'autonomo' | 'aprobacion';
+type DiscountScenario = '5' | '15';
 
 interface GovernanceSectionProps {
   compact?: boolean;
   id?: string;
 }
 
-const permissions = [
-  { system: 'CRM', access: 'Lectura y escritura', tone: 'neutral' as const },
-  { system: 'ERP / Pedidos', access: 'Lectura · escritura acotada', tone: 'neutral' as const },
-  { system: 'Descuentos > 10 %', access: 'Requiere aprobación', tone: 'accent' as const },
-  { system: 'Precios base / Nómina', access: 'Bloqueado', tone: 'locked' as const },
-];
-
 const scenarios: Record<
-  GovernanceMode,
+  DiscountScenario,
   {
-    label: string;
-    summary: string;
-    activeRuleIndex: number;
-    logs: { time: string; actor: string; detail: string; status: 'done' | 'pending' | 'approved' }[];
+    optionLabel: string;
+    requestTitle: string;
+    verdictText: string;
+    resultTitle: string;
+    resultDescription: string;
+    requiresApproval: boolean;
   }
 > = {
-  autonomo: {
-    label: 'Acción dentro de reglas',
-    summary: 'El agente ejecuta de punta a punta porque la solicitud cae dentro de tus límites definidos.',
-    activeRuleIndex: 0,
-    logs: [
-      { time: '10:14:02', actor: 'Agente', detail: 'Lee solicitud y ficha en CRM', status: 'done' },
-      { time: '10:14:05', actor: 'Sustrato', detail: 'Valida regla: descuento 5 % (≤ 10 %)', status: 'done' },
-      { time: '10:14:09', actor: 'Agente', detail: 'Genera borrador y actualiza CRM', status: 'done' },
-      { time: '10:14:11', actor: 'Auditoría', detail: 'Registro guardado con fuentes usadas', status: 'done' },
-    ],
+  '5': {
+    optionLabel: 'Descuento de 5 %',
+    requestTitle: 'Descuento de 5 %',
+    verdictText: '5 % está dentro del límite.',
+    resultTitle: 'Ejecutado y registrado',
+    resultDescription: 'El agente actualiza el CRM y guarda el historial con sus fuentes.',
+    requiresApproval: false,
   },
-  aprobacion: {
-    label: 'Acción crítica con aprobación',
-    summary: 'Cuando una operación supera un umbral, el agente frena y pide autorización humana con contexto.',
-    activeRuleIndex: 1,
-    logs: [
-      { time: '11:02:10', actor: 'Agente', detail: 'Detecta solicitud con descuento 15 %', status: 'done' },
-      { time: '11:02:12', actor: 'Sustrato', detail: 'Regla disparada: supera tope de 10 %', status: 'pending' },
-      { time: '11:04:41', actor: 'Responsable', detail: 'Aprueba excepción desde Slack', status: 'approved' },
-      { time: '11:04:44', actor: 'Agente', detail: 'Ejecuta envío y cierra trazabilidad', status: 'done' },
-    ],
+  '15': {
+    optionLabel: 'Descuento de 15 %',
+    requestTitle: 'Descuento de 15 %',
+    verdictText: '15 % supera el límite.',
+    resultTitle: 'Espera tu aprobación',
+    resultDescription:
+      'Una persona de tu equipo lo revisa antes de que se ejecute. También queda registrado.',
+    requiresApproval: true,
   },
 };
 
-const policies = [
-  'Operaciones estándar bajo umbral se ejecutan automáticamente.',
-  'Excepciones comerciales o montos críticos exigen aprobación humana.',
-  'Credenciales y datos sensibles se aíslan por rol y nunca salen sin filtro.',
-  'Cada decisión queda ligada al documento o dato exacto que la respaldó.',
+const pillars = [
+  {
+    title: 'Reglas claras',
+    description: 'Defines qué puede hacer cada agente y hasta dónde.',
+  },
+  {
+    title: 'Aprobación humana',
+    description: 'Lo crítico espera tu visto bueno.',
+  },
+  {
+    title: 'Todo trazable',
+    description: 'Cada acción queda registrada con su fuente.',
+  },
 ];
 
 export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
   compact = false,
   id = 'gobernanza',
 }) => {
-  const [mode, setMode] = useState<GovernanceMode>('aprobacion');
-  const active = scenarios[mode];
+  const [selected, setSelected] = useState<DiscountScenario>('5');
+  const groupName = useId();
+  const current = scenarios[selected];
 
   return (
     <section
       id={id}
-      className={`${compact ? 'py-16 sm:py-20' : 'py-20 sm:py-24 lg:py-28'} px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200`}
+      className={`bg-white text-[#111111] border-t border-neutral-200 ${
+        compact ? 'py-16 sm:py-[72px]' : 'pt-[72px] pb-20'
+      } px-5 sm:px-10`}
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-12">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
-              Control, permisos y trazabilidad por diseño.
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-neutral-600 leading-relaxed">
-              Los agentes no improvisan ni operan como una caja negra. Tú defines qué pueden leer,
-              cuándo deben pedir permiso y dónde queda el historial completo.
-            </p>
-          </div>
+      <div className="max-w-[1100px] mx-auto">
+        {/* Heading + Subtitle (único h2 de la sección) */}
+        <h2 className="text-[40px] sm:text-[52px] lg:text-[56px] font-bold leading-[1.05] tracking-[-0.035em] text-[#111111] max-w-[760px]">
+          Tú pones las reglas. Los agentes las cumplen.
+        </h2>
+        <p className="mt-5 text-[18px] sm:text-[20px] leading-[1.5] text-neutral-600 max-w-[560px]">
+          Piden aprobación cuando importa y todo queda registrado.
+        </p>
 
-          {/* Interactive scenario switch */}
+        {/* Toggle row */}
+        <div className="mt-9 flex flex-wrap items-center gap-4">
+          <span id={`${groupName}-label`} className="text-[15px] text-neutral-600">
+            Prueba con dos solicitudes:
+          </span>
+
           <div
-            role="group"
-            aria-label="Simular comportamiento de gobernanza"
-            className="inline-flex p-1 bg-neutral-100 border border-neutral-200 rounded-xl self-start"
+            role="radiogroup"
+            aria-labelledby={`${groupName}-label`}
+            className="inline-flex flex-wrap items-center gap-1 p-1 rounded-2xl sm:rounded-full bg-neutral-100 border border-neutral-200 max-w-full"
           >
-            {(Object.keys(scenarios) as GovernanceMode[]).map((key) => {
-              const selected = mode === key;
+            {(['5', '15'] as const).map((value) => {
+              const isChecked = selected === value;
+              const inputId = `${groupName}-${value}`;
               return (
-                <button
-                  key={key}
-                  type="button"
-                  aria-pressed={selected}
-                  onClick={() => setMode(key)}
-                  className={`min-h-[42px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors cursor-pointer ${
-                    selected
-                      ? 'bg-[#111111] text-white'
-                      : 'text-neutral-700 hover:text-[#111111]'
-                  }`}
-                >
-                  {scenarios[key].label}
-                </button>
+                <div key={value} className="relative">
+                  <input
+                    id={inputId}
+                    type="radio"
+                    name={groupName}
+                    value={value}
+                    checked={isChecked}
+                    onChange={() => setSelected(value)}
+                    className="sr-only peer"
+                  />
+                  <label
+                    htmlFor={inputId}
+                    className={`inline-flex items-center justify-center min-h-[44px] px-4 sm:px-[22px] py-2.5 rounded-full text-[14px] sm:text-[16px] font-medium whitespace-nowrap cursor-pointer select-none transition-colors duration-200 peer-focus-visible:outline-[3px] peer-focus-visible:outline-solid peer-focus-visible:outline-[#C50500] peer-focus-visible:outline-offset-2 ${
+                      isChecked
+                        ? 'bg-[#111111] text-white'
+                        : 'text-[#111111] hover:bg-neutral-200/60'
+                    }`}
+                  >
+                    {scenarios[value].optionLabel}
+                  </label>
+                </div>
               );
             })}
           </div>
         </div>
 
-        {/* 3 scannable columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          {/* Column 1: Policies */}
-          <div className="bg-[#FAFAFA] border border-neutral-200 rounded-xl p-6 flex flex-col">
-            <div className="flex items-center justify-between gap-2 pb-4 border-b border-neutral-200">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#E10600]" aria-hidden="true" />
-                <h3 className="text-base font-bold text-[#111111]">Reglas del negocio</h3>
-              </div>
-              <span className="text-[11px] font-mono-code text-neutral-600">Políticas</span>
-            </div>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {policies.map((policy, idx) => {
-                const isHighlighted = idx === active.activeRuleIndex;
-                return (
-                  <li
-                    key={policy}
-                    className={`p-3 rounded-lg border transition-colors ${
-                      isHighlighted
-                        ? 'bg-white border-[#E10600] text-[#111111] font-medium'
-                        : 'bg-white border-neutral-200 text-neutral-700'
-                    }`}
-                  >
-                    {policy}
-                  </li>
-                );
-              })}
-            </ul>
+        {/* 3-card interactive flow */}
+        <div
+          aria-live="polite"
+          className="mt-7 grid grid-cols-1 min-[861px]:grid-cols-[1fr_32px_1fr_32px_1fr] items-stretch gap-y-2"
+        >
+          {/* Card 1: Solicitud */}
+          <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.05em] text-neutral-600">
+              1 · Solicitud
+            </p>
+            <p className="text-[26px] font-semibold leading-[1.2] tracking-[-0.02em] text-[#111111]">
+              {current.requestTitle}
+            </p>
+            <p className="text-[16px] leading-[1.5] text-neutral-600">
+              Un cliente pide un descuento sobre su pedido.
+            </p>
           </div>
 
-          {/* Column 2: Audit log */}
-          <div className="bg-white border border-neutral-300 rounded-xl p-6 flex flex-col">
-            <div className="flex items-center justify-between gap-2 pb-4 border-b border-neutral-200">
-              <div className="flex items-center gap-2">
-                <UserCheck className="w-4 h-4 text-[#E10600]" aria-hidden="true" />
-                <h3 className="text-base font-bold text-[#111111]">Registro de auditoría</h3>
-              </div>
-              <span className="text-[11px] font-mono-code text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded">
-                Escenario ilustrativo
-              </span>
-            </div>
-
-            <p className="mt-3 text-xs text-neutral-600 leading-relaxed">{active.summary}</p>
-
-            <AnimatePresence mode="wait">
-              <motion.ol
-                key={mode}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.22 }}
-                className="mt-4 space-y-2.5 flex-1"
-              >
-                {active.logs.map((entry) => (
-                  <li
-                    key={`${entry.time}-${entry.actor}`}
-                    className={`p-3 rounded-lg border text-xs ${
-                      entry.status === 'pending'
-                        ? 'border-[#E10600] bg-[#FFF8F8]'
-                        : entry.status === 'approved'
-                          ? 'border-[#111111] bg-[#FAFAFA]'
-                          : 'border-neutral-200 bg-[#FAFAFA]'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-2 font-mono-code tabular-nums">
-                      <span className="text-neutral-600">
-                        {entry.time} · <strong className="text-[#111111]">{entry.actor}</strong>
-                      </span>
-                      <span
-                        className={`px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase ${
-                          entry.status === 'pending'
-                            ? 'bg-[#E10600] text-white'
-                            : entry.status === 'approved'
-                              ? 'bg-[#111111] text-white'
-                              : 'bg-neutral-200 text-neutral-800'
-                        }`}
-                      >
-                        {entry.status === 'pending'
-                          ? 'Aprobación'
-                          : entry.status === 'approved'
-                            ? 'Aprobado'
-                            : 'Completado'}
-                      </span>
-                    </div>
-                    <p className="mt-1.5 text-neutral-700 leading-snug">{entry.detail}</p>
-                  </li>
-                ))}
-              </motion.ol>
-            </AnimatePresence>
+          {/* Arrow 1 */}
+          <div className="flex items-center justify-center py-1 min-[861px]:py-0" aria-hidden="true">
+            <ChevronRight
+              className="w-6 h-6 text-[#A3A3A3] rotate-90 min-[861px]:rotate-0"
+              strokeWidth={2}
+            />
           </div>
 
-          {/* Column 3: Permissions matrix */}
-          <div className="bg-[#FAFAFA] border border-neutral-200 rounded-xl p-6 flex flex-col">
-            <div className="flex items-center justify-between gap-2 pb-4 border-b border-neutral-200">
-              <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4 text-[#E10600]" aria-hidden="true" />
-                <h3 className="text-base font-bold text-[#111111]">Permisos por sistema</h3>
-              </div>
-              <span className="text-[11px] font-mono-code text-neutral-600">Matriz</span>
-            </div>
-
-            <div className="mt-4 divide-y divide-neutral-200 border border-neutral-200 rounded-lg bg-white overflow-hidden">
-              {permissions.map((perm) => (
-                <div
-                  key={perm.system}
-                  className="px-3.5 py-3 flex items-center justify-between gap-3 text-xs"
-                >
-                  <span className="font-semibold text-[#111111]">{perm.system}</span>
-                  <span
-                    className={`font-mono-code px-2 py-0.5 rounded border text-[11px] shrink-0 ${
-                      perm.tone === 'accent'
-                        ? 'border-[#E10600]/40 bg-[#FFF8F8] text-[#C50500] font-semibold'
-                        : perm.tone === 'locked'
-                          ? 'border-neutral-300 bg-neutral-100 text-neutral-700'
-                          : 'border-neutral-200 bg-[#FAFAFA] text-neutral-700'
-                    }`}
-                  >
-                    {perm.access}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-auto pt-4 flex items-start gap-2 text-xs text-neutral-600 leading-relaxed">
-              <CheckCircle2 className="w-4 h-4 text-[#111111] shrink-0 mt-0.5" aria-hidden="true" />
-              <span>
-                El acceso corre con principio de mínimo privilegio y bajo la infraestructura que tu
-                equipo apruebe.
-              </span>
+          {/* Card 2: Regla */}
+          <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.05em] text-neutral-600">
+              2 · Regla
+            </p>
+            <p className="text-[26px] font-semibold leading-[1.2] tracking-[-0.02em] text-[#111111]">
+              Hasta 10 % se ejecuta solo
+            </p>
+            <div
+              className={`mt-auto pt-1 flex items-start gap-2.5 text-[16px] font-medium leading-[1.45] transition-colors duration-200 ${
+                current.requiresApproval ? 'text-[#B3241A]' : 'text-[#111111]'
+              }`}
+            >
+              {current.requiresApproval ? (
+                <AlertTriangle
+                  className="w-5 h-5 shrink-0 mt-0.5 text-[#B3241A]"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              ) : (
+                <CheckCircle2
+                  className="w-5 h-5 shrink-0 mt-0.5 text-[#111111]"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+              <span>{current.verdictText}</span>
             </div>
           </div>
+
+          {/* Arrow 2 */}
+          <div className="flex items-center justify-center py-1 min-[861px]:py-0" aria-hidden="true">
+            <ChevronRight
+              className="w-6 h-6 text-[#A3A3A3] rotate-90 min-[861px]:rotate-0"
+              strokeWidth={2}
+            />
+          </div>
+
+          {/* Card 3: Resultado */}
+          <div
+            className={`rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 border-[1.5px] transition-colors duration-200 ${
+              current.requiresApproval
+                ? 'bg-[#FFF6F5] border-[#C50500]'
+                : 'bg-white border-[#111111]'
+            }`}
+          >
+            <p
+              className={`inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.05em] transition-colors duration-200 ${
+                current.requiresApproval ? 'text-[#B3241A]' : 'text-[#111111]'
+              }`}
+            >
+              <span>3 · Resultado</span>
+              {current.requiresApproval ? (
+                <Clock className="w-4 h-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+              ) : (
+                <CheckCircle2 className="w-4 h-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+              )}
+            </p>
+            <p className="text-[26px] font-semibold leading-[1.2] tracking-[-0.02em] text-[#111111]">
+              {current.resultTitle}
+            </p>
+            <p className="text-[16px] leading-[1.5] text-neutral-600">
+              {current.resultDescription}
+            </p>
+          </div>
+        </div>
+
+        {/* 3 Pillars */}
+        <div className="mt-14 pt-8 border-t border-neutral-200 grid grid-cols-1 min-[861px]:grid-cols-3 gap-8">
+          {pillars.map((pillar) => (
+            <div key={pillar.title}>
+              <p className="text-[17px] font-semibold text-[#111111] leading-snug">
+                {pillar.title}
+              </p>
+              <p className="mt-1.5 text-[15px] leading-[1.5] text-neutral-600">
+                {pillar.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
