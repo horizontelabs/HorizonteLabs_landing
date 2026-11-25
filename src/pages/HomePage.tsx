@@ -118,10 +118,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => {
               <span className="text-[#D91914]">Dos formas</span> de construir sobre la{' '}
               <span className="text-[#D91914]">misma capa</span>.
             </h2>
-            <p className="mt-3 text-base sm:text-lg text-neutral-600 leading-relaxed">
-              Puedes partir automatizando procesos sobre tus herramientas actuales o construyendo el
-              software operativo que tu empresa necesita — ambos comparten el mismo sustrato.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

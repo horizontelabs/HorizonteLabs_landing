@@ -10,24 +10,6 @@ interface NosotrosPageProps {
   onOpenConsultation: (context?: DiagnosticContext) => void;
 }
 
-const principles = [
-  {
-    title: 'Ingeniería antes que promesas',
-    description:
-      'No vendemos demos frágiles. Diseñamos integraciones, software y agentes que soportan uso real diario, permisos claros y auditoría.',
-  },
-  {
-    title: 'Construcción incremental con valor desde el inicio',
-    description:
-      'Cada etapa deja capacidad instalada en tu operación. Preferimos entregas verificables en semanas antes que proyectos interminables.',
-  },
-  {
-    title: 'Trato directo con quienes construyen',
-    description:
-      'Quienes diagnostican tu operación son los mismos ingenieros que diseñan la arquitectura, escriben el código y acompañan la puesta en marcha.',
-  },
-];
-
 export const NosotrosPage: React.FC<NosotrosPageProps> = ({ onOpenConsultation }) => {
   return (
     <>
@@ -77,22 +59,6 @@ export const NosotrosPage: React.FC<NosotrosPageProps> = ({ onOpenConsultation }
                 />
               </button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 sm:py-20 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em] text-[#111111] mb-8">
-            Cómo entendemos el trabajo técnico.
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {principles.map((p) => (
-              <div key={p.title} className="bg-white border border-neutral-200 rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[#111111]">{p.title}</h3>
-                <p className="mt-2.5 text-sm text-neutral-600 leading-relaxed">{p.description}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
