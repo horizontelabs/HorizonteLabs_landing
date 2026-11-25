@@ -39,10 +39,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) 
           transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 max-w-2xl text-base sm:text-lg lg:text-xl text-neutral-600 leading-relaxed"
         >
-          <span className="text-[#111111] font-medium">Un agente solo no llega a tu empresa.</span>{' '}
-          Construimos la capa operativa que conecta tus herramientas, aplica tus criterios y deja
-          registro de cada paso — sobre ella desplegamos agentes, automatizaciones y software a
-          medida.
+          <span className="text-[#111111] font-medium">
+            La capa inteligente que tu empresa necesita.
+          </span>{' '}
+          Bajo tus criterios, con trazabilidad total.
         </motion.p>
 
         {/* Actions */}
