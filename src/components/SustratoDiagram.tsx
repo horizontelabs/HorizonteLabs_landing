@@ -106,7 +106,7 @@ export const SustratoDiagram: React.FC = () => {
       id="sustrato"
       className="relative overflow-hidden py-20 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
     >
-      <SustratoBackdrop variant="strata" intensity="subtle" />
+      <SustratoBackdrop variant="molecular" intensity="medium" />
       <div className="relative z-10 max-w-5xl mx-auto">
         {/* Header without repeating Hero */}
         <div className="max-w-3xl mb-12 sm:mb-14">

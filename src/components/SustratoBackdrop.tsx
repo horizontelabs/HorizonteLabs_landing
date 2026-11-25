@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export type BackdropVariant = 'neural' | 'strata' | 'orbital' | 'lattice';
+export type BackdropVariant = 'neural' | 'strata' | 'orbital' | 'lattice' | 'molecular';
 export type BackdropIntensity = 'subtle' | 'medium' | 'hero';
 export type BackdropTone = 'light' | 'dark';
 export type BackdropAlign = 'center' | 'right' | 'top-right';
@@ -70,6 +70,20 @@ interface LatticeTrace {
   accent: boolean;
 }
 
+interface MolecularCluster {
+  cx: number;
+  cy: number;
+  vx: number;
+  vy: number;
+  rotation: number;
+  vr: number;
+  atoms: { ox: number; oy: number; radius: number; hollow: boolean }[];
+  bonds: [number, number][];
+  pulseBond: number;
+  pulseProgress: number;
+  pulseSpeed: number;
+}
+
 export const SustratoBackdrop: React.FC<SustratoBackdropProps> = ({
   variant,
   intensity = 'subtle',
@@ -114,6 +128,8 @@ export const SustratoBackdrop: React.FC<SustratoBackdropProps> = ({
 
     const latticeSpacing = 48;
     const traces: LatticeTrace[] = [];
+
+    const clusters: MolecularCluster[] = [];
 
     const makeLatticeTrace = (w: number, h: number): LatticeTrace => {
       const cols = Math.max(4, Math.floor(w / latticeSpacing));
@@ -266,6 +282,47 @@ export const SustratoBackdrop: React.FC<SustratoBackdropProps> = ({
           const t = makeLatticeTrace(width, height);
           t.progress = (i / traceCount) * 1.2;
           traces.push(t);
+        }
+      } else if (variant === 'molecular') {
+        const count = isMobile ? 6 : 11;
+        clusters.length = 0;
+        for (let i = 0; i < count; i++) {
+          const atomCount = 3 + (i % 3); // 3 to 5 atoms per molecule
+          const atoms: MolecularCluster['atoms'] = [{ ox: 0, oy: 0, radius: 3.4, hollow: true }];
+          const bonds: [number, number][] = [];
+          for (let a = 1; a < atomCount; a++) {
+            const ang = ((a - 1) / (atomCount - 1)) * Math.PI * 2 + (i % 2) * 0.4;
+            const dist = 28 + ((i + a) % 3) * 12;
+            atoms.push({
+              ox: Math.cos(ang) * dist,
+              oy: Math.sin(ang) * dist,
+              radius: a === 1 ? 2.8 : 2.1,
+              hollow: a % 2 === 1,
+            });
+            bonds.push([0, a]);
+            if (a > 1 && (i + a) % 2 === 0) {
+              bonds.push([a - 1, a]);
+            }
+          }
+          // Spread clusters across margins & header area so they frame content gently
+          const sideBand = i % 2 === 0;
+          const cx = sideBand
+            ? (i % 4 === 0 ? 0.04 + Math.random() * 0.16 : 0.8 + Math.random() * 0.16) * width
+            : (0.15 + Math.random() * 0.7) * width;
+          const cy = (0.06 + (i / count) * 0.88) * height;
+          clusters.push({
+            cx,
+            cy,
+            vx: (Math.random() - 0.5) * 0.16,
+            vy: (Math.random() - 0.5) * 0.14,
+            rotation: Math.random() * Math.PI * 2,
+            vr: (Math.random() - 0.5) * 0.0022,
+            atoms,
+            bonds,
+            pulseBond: Math.floor(Math.random() * bonds.length),
+            pulseProgress: Math.random(),
+            pulseSpeed: 0.0045 + Math.random() * 0.0035,
+          });
         }
       }
     };
@@ -559,12 +616,114 @@ export const SustratoBackdrop: React.FC<SustratoBackdropProps> = ({
       }
     };
 
+    const drawMolecular = (advance: boolean) => {
+      const worldCenters: { x: number; y: number }[] = [];
+
+      for (const cl of clusters) {
+        if (advance) {
+          cl.cx += cl.vx;
+          cl.cy += cl.vy;
+          cl.rotation += cl.vr;
+          if (cl.cx < -60) cl.cx = width + 60;
+          if (cl.cx > width + 60) cl.cx = -60;
+          if (cl.cy < -60) cl.cy = height + 60;
+          if (cl.cy > height + 60) cl.cy = -60;
+
+          cl.pulseProgress += cl.pulseSpeed;
+          if (cl.pulseProgress >= 1) {
+            cl.pulseProgress = 0;
+            cl.pulseBond = (cl.pulseBond + 1) % cl.bonds.length;
+          }
+        }
+        worldCenters.push({ x: cl.cx, y: cl.cy });
+      }
+
+      // Faint inter-cluster bridge links when two molecules drift close
+      for (let i = 0; i < worldCenters.length; i++) {
+        for (let j = i + 1; j < worldCenters.length; j++) {
+          const d = Math.hypot(
+            worldCenters[i].x - worldCenters[j].x,
+            worldCenters[i].y - worldCenters[j].y
+          );
+          if (d < 260) {
+            const alpha = (1 - d / 260) * 0.22;
+            ctx.beginPath();
+            ctx.setLineDash([3, 4]);
+            ctx.moveTo(worldCenters[i].x, worldCenters[i].y);
+            ctx.lineTo(worldCenters[j].x, worldCenters[j].y);
+            ctx.strokeStyle = `rgba(${lineRGB}, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.setLineDash([]);
+          }
+        }
+      }
+
+      // Draw each molecular cluster (bonds, hollow/solid atoms, and soft red signal)
+      for (let idx = 0; idx < clusters.length; idx++) {
+        const cl = clusters[idx];
+        const cos = Math.cos(cl.rotation);
+        const sin = Math.sin(cl.rotation);
+        const pts = cl.atoms.map((a) => ({
+          x: cl.cx + a.ox * cos - a.oy * sin,
+          y: cl.cy + a.ox * sin + a.oy * cos,
+          radius: a.radius,
+          hollow: a.hollow,
+        }));
+
+        // Bonds
+        for (const [a, b] of cl.bonds) {
+          ctx.beginPath();
+          ctx.moveTo(pts[a].x, pts[a].y);
+          ctx.lineTo(pts[b].x, pts[b].y);
+          ctx.strokeStyle = `rgba(${lineRGB}, 0.42)`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Single soft red signal traveling along one bond in half the clusters
+        if (idx % 2 === 0 && cl.bonds[cl.pulseBond]) {
+          const [a, b] = cl.bonds[cl.pulseBond];
+          const px = pts[a].x + (pts[b].x - pts[a].x) * cl.pulseProgress;
+          const py = pts[a].y + (pts[b].y - pts[a].y) * cl.pulseProgress;
+
+          ctx.beginPath();
+          ctx.arc(px, py, 5.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${accentRGB}, 0.22)`;
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(px, py, 2.3, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${accentRGB}, 0.88)`;
+          ctx.fill();
+        }
+
+        // Atoms (ringed + solid nodes)
+        for (const pt of pts) {
+          if (pt.hollow) {
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, pt.radius + 1.8, 0, Math.PI * 2);
+            ctx.fillStyle = isDark ? '#111111' : '#FAFAFA';
+            ctx.fill();
+            ctx.strokeStyle = `rgba(${nodeRGB}, 0.55)`;
+            ctx.lineWidth = 1.25;
+            ctx.stroke();
+          }
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, pt.hollow ? 1.5 : pt.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${nodeRGB}, 0.65)`;
+          ctx.fill();
+        }
+      }
+    };
+
     const drawFrame = (advance: boolean) => {
       if (width === 0 || height === 0) return;
       ctx.clearRect(0, 0, width, height);
       if (variant === 'neural') drawNeural(advance);
       else if (variant === 'strata') drawStrata(advance);
       else if (variant === 'orbital') drawOrbital(advance);
+      else if (variant === 'molecular') drawMolecular(advance);
       else drawLattice(advance);
     };
 
