@@ -97,9 +97,8 @@ export const SustratoDiagram: React.FC = () => {
             Una capa compartida, construida pieza a pieza.
           </h2>
           <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed">
-            Cada etapa entrega algo utilizable desde el primer día: integraciones, automatizaciones,
-            agentes y software a medida. Todo apoya la misma capa, haciendo más simple cada paso
-            siguiente.
+            Integraciones, automatizaciones, agentes o software a medida conectados a una misma capa
+            de datos y contexto, reduciendo el costo y el tiempo de cada siguiente paso.
           </p>
         </div>
 
