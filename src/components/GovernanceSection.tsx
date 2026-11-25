@@ -124,7 +124,7 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
           className="mt-7 grid grid-cols-1 min-[861px]:grid-cols-[1fr_32px_1fr_32px_1fr] items-stretch gap-y-2"
         >
           {/* Card 1: Solicitud */}
-          <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
+          <div className="bg-[#FFF8F8] border border-[#E10600]/35 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
             <p className="text-[13px] font-semibold uppercase tracking-[0.05em] text-neutral-600">
               1 · Solicitud
             </p>
@@ -145,7 +145,7 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
           </div>
 
           {/* Card 2: Regla */}
-          <div className="bg-[#FAFAFA] border border-neutral-200 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
+          <div className="bg-[#FFF8F8] border border-[#E10600]/35 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
             <p className="text-[13px] font-semibold uppercase tracking-[0.05em] text-neutral-600">
               2 · Regla
             </p>
@@ -186,8 +186,8 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
           <div
             className={`rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 border-[1.5px] transition-colors duration-200 ${
               current.requiresApproval
-                ? 'bg-[#FFF6F5] border-[#C50500]'
-                : 'bg-white border-[#111111]'
+                ? 'bg-[#FFF0EF] border-[#C50500]'
+                : 'bg-[#FFF8F8] border-[#111111]'
             }`}
           >
             <p

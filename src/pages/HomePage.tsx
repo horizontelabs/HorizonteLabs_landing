@@ -115,7 +115,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => {
         <div className="max-w-6xl mx-auto">
           <div className="max-w-2xl mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
-              Dos formas de construir sobre la misma capa.
+              <span className="text-[#D91914]">Dos formas</span> de construir sobre la{' '}
+              <span className="text-[#D91914]">misma capa</span>.
             </h2>
             <p className="mt-3 text-base sm:text-lg text-neutral-600 leading-relaxed">
               Puedes partir automatizando procesos sobre tus herramientas actuales o construyendo el
