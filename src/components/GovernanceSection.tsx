@@ -135,8 +135,8 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
           aria-live="polite"
           className="mt-7 grid grid-cols-1 min-[861px]:grid-cols-[1fr_32px_1fr_32px_1fr] items-stretch gap-y-2"
         >
-          {/* Card 1: Solicitud */}
-          <div className="bg-[#FFF8F8] border border-[#E10600]/35 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
+          {/* Card 1: Solicitud (neutro / blanco) */}
+          <div className="bg-white border border-neutral-200 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
             <p className="text-[13px] font-semibold uppercase tracking-[0.05em] text-neutral-600">
               1 · Solicitud
             </p>
@@ -156,9 +156,9 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
             />
           </div>
 
-          {/* Card 2: Regla */}
-          <div className="bg-[#FFF8F8] border border-[#E10600]/35 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
-            <p className="text-[13px] font-semibold uppercase tracking-[0.05em] text-neutral-600">
+          {/* Card 2: Regla (evaluación / amarillo suave) */}
+          <div className="bg-[#FFFBEB] border border-amber-300/80 rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 transition-colors duration-200">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.05em] text-amber-800">
               2 · Regla
             </p>
             <p className="text-[26px] font-semibold leading-[1.2] tracking-[-0.02em] text-[#111111]">
@@ -166,7 +166,7 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
             </p>
             <div
               className={`mt-auto pt-1 flex items-start gap-2.5 text-[16px] font-medium leading-[1.45] transition-colors duration-200 ${
-                current.requiresApproval ? 'text-[#B3241A]' : 'text-[#111111]'
+                current.requiresApproval ? 'text-[#B3241A]' : 'text-emerald-800'
               }`}
             >
               {current.requiresApproval ? (
@@ -177,7 +177,7 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
                 />
               ) : (
                 <CheckCircle2
-                  className="w-5 h-5 shrink-0 mt-0.5 text-[#111111]"
+                  className="w-5 h-5 shrink-0 mt-0.5 text-emerald-700"
                   strokeWidth={2}
                   aria-hidden="true"
                 />
@@ -194,17 +194,17 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
             />
           </div>
 
-          {/* Card 3: Resultado */}
+          {/* Card 3: Resultado (verde en 5% / rojo en 15%) */}
           <div
             className={`rounded-2xl p-7 min-h-[210px] flex flex-col gap-3 border-[1.5px] transition-colors duration-200 ${
               current.requiresApproval
-                ? 'bg-[#FFF0EF] border-[#C50500]'
-                : 'bg-[#FFF8F8] border-[#111111]'
+                ? 'bg-[#FEF2F2] border-[#C50500]'
+                : 'bg-[#F0FDF4] border-emerald-600/70'
             }`}
           >
             <p
               className={`inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.05em] transition-colors duration-200 ${
-                current.requiresApproval ? 'text-[#B3241A]' : 'text-[#111111]'
+                current.requiresApproval ? 'text-[#B3241A]' : 'text-emerald-800'
               }`}
             >
               <span>3 · Resultado</span>
