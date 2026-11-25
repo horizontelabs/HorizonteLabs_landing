@@ -137,11 +137,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => {
                   Agentes de IA, automatizaciones de extremo a extremo e integraciones MCP/API sobre
                   las herramientas que tu equipo ya usa todos los días.
                 </p>
-                <ul className="mt-5 space-y-2 text-sm text-neutral-700">
-                  <li>• Flujos de principio a fin con lectura de contexto y registro auditable</li>
-                  <li>• Agentes acotados por rol con reglas y aprobaciones humanas</li>
-                  <li>• Integración directa con CRM, ERP, correo, mensajería y documentos</li>
-                </ul>
               </div>
 
               <div className="mt-7 pt-5 border-t border-neutral-200">
@@ -171,11 +166,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => {
                   Desarrollo de aplicaciones a medida, portales internos y capas de integración que
                   resuelven el trabajo de tu equipo y nacen listas para tus agentes.
                 </p>
-                <ul className="mt-5 space-y-2 text-sm text-neutral-700">
-                  <li>• Paneles operativos, portales y herramientas internas a medida</li>
-                  <li>• APIs, conectores MCP y modernización de sistemas legacy</li>
-                  <li>• Código propio, tipado estricto, pruebas y despliegue en tu nube</li>
-                </ul>
               </div>
 
               <div className="mt-7 pt-5 border-t border-neutral-200">
