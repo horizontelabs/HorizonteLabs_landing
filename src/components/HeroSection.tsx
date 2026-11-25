@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowDown, ArrowUpRight, Check } from 'lucide-react';
 import { HeroNeuralCanvas } from './HeroNeuralCanvas';
+import { ClientLogos } from './ClientLogos';
 import type { DiagnosticContext } from '../lib/siteConfig';
 
 interface HeroSectionProps {
@@ -16,11 +17,11 @@ const pillars = [
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) => {
   return (
-    <section className="relative min-h-[82vh] flex flex-col justify-center pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-24 px-5 sm:px-8 lg:px-14 bg-white overflow-hidden">
+    <section className="relative min-h-[100svh] flex flex-col justify-center pt-28 sm:pt-32 lg:pt-36 pb-10 sm:pb-14 px-5 sm:px-8 lg:px-14 bg-white overflow-hidden">
       {/* Subtle Neural Network Particle Canvas Background */}
       <HeroNeuralCanvas />
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center w-full">
         <motion.h1
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,7 +79,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.55, delay: 0.24 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-xs sm:text-sm text-neutral-600"
+          className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-xs sm:text-sm text-neutral-600"
         >
           {pillars.map((pillar) => (
             <li key={pillar} className="inline-flex items-center gap-2">
@@ -87,6 +88,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) 
             </li>
           ))}
         </motion.ul>
+
+        {/* Trusted by client logos */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 sm:mt-12 w-full"
+        >
+          <ClientLogos />
+        </motion.div>
       </div>
     </section>
   );
