@@ -712,30 +712,28 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="border border-white/15 rounded-xl p-6">
-              <span className="block text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-white tabular-nums">
-                Día 1
-              </span>
+              <h3 className="text-xl sm:text-2xl font-bold tracking-[-0.02em] text-white leading-snug">
+                Conectado a lo que ya usas
+              </h3>
               <p className="mt-3 text-sm text-neutral-300 leading-relaxed">
-                Cada etapa queda instalada y en uso real desde la primera integración — sin meses de
-                diagnóstico en papel.
+                Integración directa con tu CRM, ERP, correo y bases actuales, sin reemplazos
+                forzados.
               </p>
             </div>
             <div className="border border-white/15 rounded-xl p-6">
-              <span className="block text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-white tabular-nums">
-                100 %
-              </span>
+              <h3 className="text-xl sm:text-2xl font-bold tracking-[-0.02em] text-white leading-snug">
+                Permisos y aprobación humana
+              </h3>
               <p className="mt-3 text-sm text-neutral-300 leading-relaxed">
-                Trazabilidad de cada lectura, criterio aplicado, aprobación humana y acción ejecutada
-                sobre tus sistemas.
+                Accesos definidos por rol y validación humana en los puntos clave del flujo.
               </p>
             </div>
             <div className="border border-white/15 rounded-xl p-6">
-              <span className="block text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-white tabular-nums">
-                0
-              </span>
+              <h3 className="text-xl sm:text-2xl font-bold tracking-[-0.02em] text-white leading-snug">
+                Trazabilidad completa
+              </h3>
               <p className="mt-3 text-sm text-neutral-300 leading-relaxed">
-                Reemplazo forzado de herramientas: trabajamos sobre el CRM, ERP, correo y bases que
-                tu equipo ya opera.
+                Registro auditable de cada lectura, criterio y acción ejecutada sobre tus sistemas.
               </p>
             </div>
           </div>
