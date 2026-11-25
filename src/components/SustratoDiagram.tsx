@@ -73,16 +73,16 @@ const segments = [
 
 const SolidDownArrow: React.FC = () => (
   <svg
-    width="12"
-    height="16"
-    viewBox="0 0 12 16"
+    width="14"
+    height="24"
+    viewBox="0 0 14 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
     className="text-neutral-400 shrink-0"
   >
-    <path d="M6 1V10.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-    <path d="M2 9.5L6 15L10 9.5H2Z" fill="currentColor" />
+    <path d="M7 1V17.5" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+    <path d="M2.5 16.5L7 23L11.5 16.5H2.5Z" fill="currentColor" />
   </svg>
 );
 
@@ -202,11 +202,11 @@ export const SustratoDiagram: React.FC = () => {
 
         {/* Conector Central (Puente entre recuadros) */}
         <div
-          className="h-9 flex items-center justify-center gap-3.5"
+          className="h-12 flex items-center justify-center gap-4"
           aria-hidden="true"
         >
           <SolidDownArrow />
-          <span className="text-[11px] font-mono-code font-medium uppercase tracking-[0.22em] text-neutral-500">
+          <span className="text-xs sm:text-[13px] font-mono-code font-semibold uppercase tracking-[0.22em] text-neutral-500">
             operan sobre
           </span>
           <SolidDownArrow />
@@ -264,8 +264,7 @@ export const SustratoDiagram: React.FC = () => {
               ))}
             </div>
             <p className="text-center text-xs sm:text-sm text-neutral-600 leading-relaxed mt-4 max-w-2xl mx-auto">
-              Sin reemplazar las herramientas que tu equipo ya domina: conectamos correo, mensajería,
-              CRM, ERP, bases de datos y aplicaciones internas bajo un mismo estándar.
+              Conectamos lo que ya usas, sin reemplazar herramientas.
             </p>
           </div>
         </div>
