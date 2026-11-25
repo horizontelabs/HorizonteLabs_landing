@@ -1,5 +1,13 @@
 import React, { useId, useState } from 'react';
-import { AlertTriangle, CheckCircle2, ChevronRight, Clock } from 'lucide-react';
+import {
+  AlertTriangle,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  History,
+  ListChecks,
+  UserCheck,
+} from 'lucide-react';
 
 type DiscountScenario = '5' | '15';
 
@@ -40,14 +48,17 @@ const scenarios: Record<
 
 const pillars = [
   {
+    icon: ListChecks,
     title: 'Reglas claras',
     description: 'Defines qué puede hacer cada agente y hasta dónde.',
   },
   {
+    icon: UserCheck,
     title: 'Aprobación humana',
     description: 'Lo crítico espera tu visto bueno.',
   },
   {
+    icon: History,
     title: 'Todo trazable',
     description: 'Cada acción queda registrada con su fuente.',
   },
@@ -71,7 +82,8 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
       <div className="max-w-[1100px] mx-auto">
         {/* Heading + Subtitle (único h2 de la sección) */}
         <h2 className="text-[40px] sm:text-[52px] lg:text-[56px] font-bold leading-[1.05] tracking-[-0.035em] text-[#111111] max-w-[760px]">
-          Tú pones las reglas. Los agentes las cumplen.
+          Tú pones las reglas.{' '}
+          <span className="text-[#D91914]">Los agentes las cumplen.</span>
         </h2>
         <p className="mt-5 text-[18px] sm:text-[20px] leading-[1.5] text-neutral-600 max-w-[560px]">
           Piden aprobación cuando importa y todo queda registrado.
@@ -212,17 +224,25 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
         </div>
 
         {/* 3 Pillars */}
-        <div className="mt-14 pt-8 border-t border-neutral-200 grid grid-cols-1 min-[861px]:grid-cols-3 gap-8">
-          {pillars.map((pillar) => (
-            <div key={pillar.title}>
-              <p className="text-[17px] font-semibold text-[#111111] leading-snug">
-                {pillar.title}
-              </p>
-              <p className="mt-1.5 text-[15px] leading-[1.5] text-neutral-600">
-                {pillar.description}
-              </p>
-            </div>
-          ))}
+        <div className="mt-14 pt-8 border-t border-neutral-200 grid grid-cols-1 min-[861px]:grid-cols-3 gap-7">
+          {pillars.map((pillar) => {
+            const Icon = pillar.icon;
+            return (
+              <div key={pillar.title} className="flex items-start gap-3.5">
+                <div className="w-9 h-9 rounded-lg bg-[#FFF8F8] border border-[#E10600]/25 flex items-center justify-center text-[#D91914] shrink-0 mt-0.5">
+                  <Icon className="w-4.5 h-4.5" strokeWidth={2} aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-[17px] font-semibold text-[#D91914] leading-snug">
+                    {pillar.title}
+                  </p>
+                  <p className="mt-1 text-[15px] leading-[1.5] text-neutral-600">
+                    {pillar.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
