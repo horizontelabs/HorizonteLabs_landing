@@ -16,6 +16,7 @@ import {
 import { PageMeta } from '../components/PageMeta';
 import { FaqAccordion, type FaqItem } from '../components/FaqAccordion';
 import { CTASection } from '../components/CTASection';
+import { SustratoBackdrop } from '../components/SustratoBackdrop';
 import { BlueprintFrame } from '../components/visuals/blueprint';
 import { Link } from '../lib/router';
 import { SITE_URL, type DiagnosticContext } from '../lib/siteConfig';
@@ -244,8 +245,9 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       />
 
       {/* Hero */}
-      <section className="pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
+        <SustratoBackdrop variant="lattice" intensity="medium" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <nav aria-label="Ruta de navegación" className="mb-6 text-xs text-neutral-600 flex items-center gap-2">
             <Link to="/" className="hover:text-[#111111] transition-colors">
               Inicio
@@ -481,8 +483,9 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       </section>
 
       {/* What we build: repeatable tabs + blueprint diagram */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+        <SustratoBackdrop variant="strata" intensity="subtle" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="max-w-2xl mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Qué construimos según la etapa de tu operación.
@@ -625,8 +628,9 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Interactive 4-phase engineering cycle */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+        <SustratoBackdrop variant="orbital" align="top-right" intensity="subtle" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="max-w-2xl mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Ciclo de ingeniería paso a paso.
@@ -745,6 +749,7 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
       <CTASection
         onOpenConsultation={onOpenConsultation}
         context="ingenieria"
+        backdropVariant="neural"
         title="Conversemos sobre el sistema que tu operación necesita."
         description="Revisamos tu arquitectura actual en 30 minutos y definimos el camino técnico más directo para construir o modernizar tu herramienta."
       />

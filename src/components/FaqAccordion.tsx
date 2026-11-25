@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Minus, Plus } from 'lucide-react';
+import { SustratoBackdrop } from './SustratoBackdrop';
 
 export interface FaqItem {
   id: string;
@@ -21,9 +22,10 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({ id, title, subtitle,
   return (
     <section
       id={id}
-      className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
+      className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
     >
-      <div className="max-w-4xl mx-auto">
+      <SustratoBackdrop variant="lattice" intensity="subtle" />
+      <div className="relative z-10 max-w-4xl mx-auto">
         <div className="mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
             {title}

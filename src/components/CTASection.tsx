@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight, Mail } from 'lucide-react';
+import { SustratoBackdrop, type BackdropVariant } from './SustratoBackdrop';
 import { CONTACT_EMAIL, type DiagnosticContext } from '../lib/siteConfig';
 
 interface CTASectionProps {
@@ -7,6 +8,7 @@ interface CTASectionProps {
   context?: DiagnosticContext;
   title?: string;
   description?: string;
+  backdropVariant?: BackdropVariant;
 }
 
 export const CTASection: React.FC<CTASectionProps> = ({
@@ -14,13 +16,15 @@ export const CTASection: React.FC<CTASectionProps> = ({
   context = 'general',
   title = 'Comencemos revisando juntos tu operación.',
   description = 'En una sesión de 30 minutos mapeamos tus herramientas actuales, detectamos el primer proceso con retorno real y definimos la etapa inicial sin compromiso.',
+  backdropVariant = 'orbital',
 }) => {
   return (
     <section
       id="contacto"
-      className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200"
+      className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200"
     >
-      <div className="max-w-4xl mx-auto text-center">
+      <SustratoBackdrop variant={backdropVariant} align="right" intensity="medium" />
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
           {title}
         </h2>

@@ -20,6 +20,7 @@ import { PageMeta } from '../components/PageMeta';
 import { GovernanceSection } from '../components/GovernanceSection';
 import { FaqAccordion, type FaqItem } from '../components/FaqAccordion';
 import { CTASection } from '../components/CTASection';
+import { SustratoBackdrop } from '../components/SustratoBackdrop';
 import { BlueprintArrowH, BlueprintFrame } from '../components/visuals/blueprint';
 import { Link } from '../lib/router';
 import { SITE_URL, type DiagnosticContext } from '../lib/siteConfig';
@@ -269,8 +270,9 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       />
 
       {/* Hero */}
-      <section className="pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
+        <SustratoBackdrop variant="neural" intensity="medium" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <nav aria-label="Ruta de navegación" className="mb-6 text-xs text-neutral-600 flex items-center gap-2">
             <Link to="/" className="hover:text-[#111111] transition-colors">
               Inicio
@@ -510,8 +512,9 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       </section>
 
       {/* Use Cases in Tabs with Repeatable 4-Block Framework */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-white border-t border-neutral-200">
+        <SustratoBackdrop variant="strata" intensity="subtle" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="max-w-2xl mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Escenarios concretos por tipo de operación.
@@ -705,8 +708,9 @@ export const SolucionesPage: React.FC<SolucionesPageProps> = ({ onOpenConsultati
       <GovernanceSection compact id="control-soluciones" />
 
       {/* Honest verifiable commitments (no fake client KPIs) */}
-      <section className="py-16 sm:py-20 px-5 sm:px-8 lg:px-14 bg-[#111111] text-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden py-16 sm:py-20 px-5 sm:px-8 lg:px-14 bg-[#111111] text-white">
+        <SustratoBackdrop variant="neural" tone="dark" intensity="subtle" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em] mb-10">
             Principios medibles desde el primer ciclo.
           </h2>

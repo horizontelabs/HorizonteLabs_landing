@@ -8,6 +8,7 @@ import {
   ListChecks,
   UserCheck,
 } from 'lucide-react';
+import { SustratoBackdrop } from './SustratoBackdrop';
 
 type DiscountScenario = '5' | '15';
 
@@ -75,11 +76,12 @@ export const GovernanceSection: React.FC<GovernanceSectionProps> = ({
   return (
     <section
       id={id}
-      className={`bg-white text-[#111111] border-t border-neutral-200 ${
+      className={`relative overflow-hidden bg-white text-[#111111] border-t border-neutral-200 ${
         compact ? 'py-16 sm:py-[72px]' : 'pt-[72px] pb-20'
       } px-5 sm:px-10`}
     >
-      <div className="max-w-[1100px] mx-auto">
+      <SustratoBackdrop variant="orbital" align="top-right" intensity="subtle" />
+      <div className="relative z-10 max-w-[1100px] mx-auto">
         {/* Heading + Subtitle (único h2 de la sección) */}
         <h2 className="text-[40px] sm:text-[52px] lg:text-[56px] font-bold leading-[1.05] tracking-[-0.035em] text-[#111111] max-w-[760px]">
           Tú pones las reglas.{' '}

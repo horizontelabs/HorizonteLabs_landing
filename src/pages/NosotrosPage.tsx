@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { TeamSection } from '../components/TeamSection';
 import { CTASection } from '../components/CTASection';
+import { SustratoBackdrop } from '../components/SustratoBackdrop';
 import { Link } from '../lib/router';
 import { SITE_URL, type DiagnosticContext } from '../lib/siteConfig';
 
@@ -25,8 +26,9 @@ export const NosotrosPage: React.FC<NosotrosPageProps> = ({ onOpenConsultation }
         }}
       />
 
-      <section className="pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden pt-28 sm:pt-34 pb-16 sm:pb-20 px-5 sm:px-8 lg:px-14 bg-white">
+        <SustratoBackdrop variant="orbital" align="right" intensity="medium" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <nav aria-label="Ruta de navegación" className="mb-6 text-xs text-neutral-600 flex items-center gap-2">
             <Link to="/" className="hover:text-[#111111] transition-colors">
               Inicio
@@ -70,6 +72,7 @@ export const NosotrosPage: React.FC<NosotrosPageProps> = ({ onOpenConsultation }
       <CTASection
         onOpenConsultation={onOpenConsultation}
         context="general"
+        backdropVariant="strata"
         title="Hablemos directo sobre tu operación."
         description="Sin intermediarios: revisamos tu contexto técnico y operativo en 30 minutos para definir si tiene sentido trabajar juntos."
       />

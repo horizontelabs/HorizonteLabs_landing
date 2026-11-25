@@ -7,6 +7,7 @@ import { GovernanceSection } from '../components/GovernanceSection';
 import { TeamSection } from '../components/TeamSection';
 import { FaqAccordion, type FaqItem } from '../components/FaqAccordion';
 import { CTASection } from '../components/CTASection';
+import { SustratoBackdrop } from '../components/SustratoBackdrop';
 import { Link } from '../lib/router';
 import { SITE_URL, type DiagnosticContext } from '../lib/siteConfig';
 
@@ -185,8 +186,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => {
       <GovernanceSection />
 
       {/* How we work in 3 stages */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
+        <SustratoBackdrop variant="strata" intensity="subtle" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="max-w-2xl mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
               Cómo pasamos del diagnóstico a producción.

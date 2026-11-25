@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { SustratoMark } from './SustratoMark';
+import { SustratoBackdrop } from './SustratoBackdrop';
 import { BentoAgentsVisual } from './visuals/BentoAgentsVisual';
 import { BentoAutomationVisual } from './visuals/BentoAutomationVisual';
 import { BentoCustomSoftwareVisual } from './visuals/BentoCustomSoftwareVisual';
@@ -103,9 +104,10 @@ export const SustratoDiagram: React.FC = () => {
   return (
     <section
       id="sustrato"
-      className="py-20 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
+      className="relative overflow-hidden py-20 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200"
     >
-      <div className="max-w-5xl mx-auto">
+      <SustratoBackdrop variant="strata" intensity="subtle" />
+      <div className="relative z-10 max-w-5xl mx-auto">
         {/* Header without repeating Hero */}
         <div className="max-w-3xl mb-12 sm:mb-14">
           <div className="w-10 h-[3px] rounded-full bg-[#E10600] mb-4" aria-hidden="true" />
