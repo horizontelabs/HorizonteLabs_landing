@@ -43,7 +43,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ compact = false }) => 
             </h2>
             <p className="mt-3 text-base sm:text-lg text-neutral-600 leading-relaxed">
               Trabajas directo con los ingenieros que diseñan, integran y despliegan tu capa en
-              producción — sin capas comerciales intermedias.
+              producción.
             </p>
           </div>
 

@@ -71,6 +71,21 @@ const segments = [
   { state: 'next', label: 'Software' },
 ] as const;
 
+const SolidDownArrow: React.FC = () => (
+  <svg
+    width="12"
+    height="16"
+    viewBox="0 0 12 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    className="text-neutral-400 shrink-0"
+  >
+    <path d="M6 1V10.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+    <path d="M2 9.5L6 15L10 9.5H2Z" fill="currentColor" />
+  </svg>
+);
+
 export const SustratoDiagram: React.FC = () => {
   const [activeId, setActiveId] = useState<Consumer['id']>('agentes');
   const activeConsumer = consumers.find((c) => c.id === activeId) ?? consumers[0];
@@ -93,8 +108,10 @@ export const SustratoDiagram: React.FC = () => {
       <div className="max-w-5xl mx-auto">
         {/* Header without repeating Hero */}
         <div className="max-w-3xl mb-12 sm:mb-14">
+          <div className="w-10 h-[3px] rounded-full bg-[#E10600] mb-4" aria-hidden="true" />
           <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
-            Una capa compartida, construida pieza a pieza.
+            Una capa compartida,{' '}
+            <span className="text-[#D91914]">construida pieza a pieza.</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed">
             Integraciones, automatizaciones, agentes o software a medida conectados a una misma capa
@@ -102,8 +119,8 @@ export const SustratoDiagram: React.FC = () => {
           </p>
         </div>
 
-        {/* Interactive layer explorer */}
-        <div className="bg-white border border-neutral-200 rounded-2xl p-4 sm:p-7 lg:p-8">
+        {/* Recuadro Superior (Contenedor 1 — Capa de Soluciones) */}
+        <div className="w-full bg-white border border-neutral-200 rounded-3xl shadow-[0_8px_30px_rgba(17,17,17,0.04)] p-5 sm:p-8 lg:p-10">
           {/* Segmented tab bar: always 1 clean row on mobile and desktop */}
           <div
             role="tablist"
@@ -160,7 +177,7 @@ export const SustratoDiagram: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center"
+              className="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center"
             >
               <div className="lg:col-span-5 text-left">
                 <h3 className="text-xl sm:text-2xl font-bold text-[#111111] tracking-[-0.02em] leading-snug">
@@ -181,16 +198,22 @@ export const SustratoDiagram: React.FC = () => {
               <div className="lg:col-span-7">{activeConsumer.visual}</div>
             </motion.div>
           </AnimatePresence>
+        </div>
 
-          {/* Architectural connection divider */}
-          <div className="my-6 flex items-center justify-center gap-3" aria-hidden="true">
-            <span className="h-px flex-1 bg-neutral-200" />
-            <span className="text-[11px] font-mono-code uppercase tracking-wider text-neutral-600">
-              operan sobre
-            </span>
-            <span className="h-px flex-1 bg-neutral-200" />
-          </div>
+        {/* Conector Central (Puente entre recuadros) */}
+        <div
+          className="h-9 flex items-center justify-center gap-3.5"
+          aria-hidden="true"
+        >
+          <SolidDownArrow />
+          <span className="text-[11px] font-mono-code font-medium uppercase tracking-[0.22em] text-neutral-500">
+            operan sobre
+          </span>
+          <SolidDownArrow />
+        </div>
 
+        {/* Recuadro Inferior (Contenedor 2 — Capa Base y Fuentes) */}
+        <div className="w-full bg-white border border-neutral-200 rounded-3xl shadow-[0_8px_30px_rgba(17,17,17,0.04)] p-5 sm:p-8 lg:p-10">
           {/* The Sustrato Slab */}
           <div className="bg-[#FFF8F8] border border-[#E10600]/35 rounded-xl px-5 sm:px-8 py-6 sm:py-7 text-center">
             <div className="flex items-center justify-center gap-2.5">
@@ -226,7 +249,7 @@ export const SustratoDiagram: React.FC = () => {
           </div>
 
           {/* Operational sources feeding the layer */}
-          <div className="mt-6">
+          <div className="mt-7">
             <p className="text-center text-xs font-mono-code uppercase tracking-wider text-neutral-600 mb-3">
               Fuentes que alimentan la capa
             </p>

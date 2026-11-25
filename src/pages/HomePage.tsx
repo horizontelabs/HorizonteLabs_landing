@@ -196,8 +196,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => {
               Cómo pasamos del diagnóstico a producción.
             </h2>
             <p className="mt-3 text-base sm:text-lg text-neutral-600 leading-relaxed">
-              Sin proyectos monolíticos ni meses de espera antes de ver valor real. Avanzamos en
-              etapas acotadas que dejan capacidad instalada.
+              Implementaciones rápidas sin frenar tu operación.
             </p>
           </div>
 
