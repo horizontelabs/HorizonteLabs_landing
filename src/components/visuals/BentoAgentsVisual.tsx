@@ -15,7 +15,6 @@ export const BentoAgentsVisual: React.FC = () => {
     <BlueprintFrame
       label="Agentes sobre la capa"
       badge="Escenario ilustrativo"
-      note="Cada agente cumple un rol acotado. Todos leen los mismos criterios y dejan registro sobre el sustrato."
     >
       <div className="w-full flex flex-col">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">

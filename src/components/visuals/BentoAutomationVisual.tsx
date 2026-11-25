@@ -30,7 +30,6 @@ export const BentoAutomationVisual: React.FC = () => {
     <BlueprintFrame
       label="Anatomía de un flujo"
       badge="Escenario ilustrativo"
-      note="Cambia el evento y el resultado según tu operación; la lógica de contexto y registro es consistente."
     >
       <div className="w-full flex flex-col items-stretch">
         {stages.map((stage, i) => (

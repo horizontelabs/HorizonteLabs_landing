@@ -12,7 +12,6 @@ export const BentoCustomSoftwareVisual: React.FC = () => {
     <BlueprintFrame
       label="Software a medida sobre la capa"
       badge="Escenario ilustrativo"
-      note="Resuelve primero el flujo diario del equipo y queda expuesto vía API/MCP para que tus agentes también operen sobre él."
     >
       <div className="w-full flex flex-col items-center">
         <BlueprintNode icon={Users} title="Equipo humano" meta="Interfaz web dedicada" />
