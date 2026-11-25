@@ -7,12 +7,9 @@ import {
   Bot,
   CheckCircle2,
   Code2,
-  Cpu,
   Database,
   GitMerge,
-  KeyRound,
   Layers,
-  Lock,
   Terminal,
   Users,
 } from 'lucide-react';
@@ -140,33 +137,6 @@ const buildTabs: BuildTab[] = [
       { name: 'Capa de adaptación Sustrato', detail: 'Contratos estables · Convivencia', accent: true },
       { name: 'Sistema legacy actual', detail: 'Operación continua sin detención' },
     ],
-  },
-];
-
-const engineeringStandards = [
-  {
-    icon: KeyRound,
-    title: 'Propiedad total del código',
-    description:
-      'El repositorio, infraestructura y documentación quedan a nombre de tu empresa. Sin licencias cautivas ni cajas negras.',
-  },
-  {
-    icon: Code2,
-    title: 'Arquitectura mantenible',
-    description:
-      'Tipado estricto, pruebas automatizadas, CI/CD y código legible para que tu equipo interno pueda evolucionarlo cuando quiera.',
-  },
-  {
-    icon: Lock,
-    title: 'Seguridad desde el diseño',
-    description:
-      'Autenticación, control de acceso por rol, auditoría de cambios y despliegue en la nube o entorno que tu organización apruebe.',
-  },
-  {
-    icon: Cpu,
-    title: 'Compatibilidad agéntica nativa',
-    description:
-      'Cada módulo expone contratos y eventos claros sobre el sustrato para sumar agentes cuando tenga sentido operativo.',
   },
 ];
 
@@ -651,36 +621,6 @@ export const IngenieriaPage: React.FC<IngenieriaPageProps> = ({ onOpenConsultati
               </div>
             </motion.div>
           </AnimatePresence>
-        </div>
-      </section>
-
-      {/* Engineering Standards 2x2 */}
-      <section className="py-20 sm:py-24 px-5 sm:px-8 lg:px-14 bg-[#FAFAFA] border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.025em] text-[#111111] leading-[1.12]">
-              Estándares de ingeniería sin letra chica.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {engineeringStandards.map((std) => (
-              <div
-                key={std.title}
-                className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-7 flex items-start gap-4"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#FAFAFA] border border-neutral-200 flex items-center justify-center text-[#E10600] shrink-0">
-                  <std.icon className="w-5 h-5" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-[#111111]">{std.title}</h3>
-                  <p className="mt-1.5 text-sm text-neutral-600 leading-relaxed">
-                    {std.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
